@@ -1,4 +1,4 @@
-import { View, Text ,StyleSheet,ScrollView,TouchableOpacity} from 'react-native'
+import { View, Text ,StyleSheet,ScrollView,TouchableOpacity,Image} from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,16 +12,21 @@ const Profile = () => {
   return (
     <View style={styles.page}>
          <View style={styles.header}>
-        <AntDesign  name="menufold" size={30} color="green" />
-        <MaterialCommunityIcons  name="bell-alert-outline" size={30} color="green" />
-
+         <Image  
+               source={require('../../assets/images/menu-green.png')}
+               style={styles.image}
+            />     
+               <Image 
+               source={require('../../assets/images/notification.png')}
+               style={styles.image}
+            />
         </View>
         <View style={styles.body}>
             <View style={styles.avatar}>
             <AntDesign  name="user" size={80} color="white" />
 
             </View>
-            <Text>اسم المستخدم</Text>
+            <Text style={styles.text}>اسم المستخدم</Text>
             <View style={{backgroundColor:"#E2AC00",borderRadius:50,marginVertical:20}}>
             <AntDesign style={{padding:5}}  name="star" size={20} color="white" />
 
@@ -70,6 +75,11 @@ const styles = StyleSheet.create({
       marginBottom:"20%"
       
     },
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
     border:{
         width:"100%",
         borderWidth:1,
@@ -110,9 +120,9 @@ marginVertical:5
     },
   
     text:{
-      fontSize:12,
+      fontSize:17,
       fontFamily:"Cairo-Bold",
-      color:"green"
+      color:"grey"
     },
     text1:{
         fontSize:15,

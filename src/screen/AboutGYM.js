@@ -8,9 +8,14 @@ const AboutGYM = () => {
   return (
     <ScrollView style={styles.container}>
         <View style={styles.header}>
-        <AntDesign  name="menufold" size={30} color="green" />
-        <MaterialCommunityIcons  name="bell-alert-outline" size={30} color="green" />
-
+        <Image 
+               source={require('../../assets/images/menu-green.png')}
+               style={styles.image}
+            />     
+ <Image 
+               source={require('../../assets/images/notification.png')}
+               style={styles.image}
+            /> 
         </View>
 
         <View style={styles.body}>
@@ -28,6 +33,13 @@ const styles = StyleSheet.create({
      marginBottom:"20%"
   
     },
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
+
+   
     header:{
         display:"flex",
         justifyContent:"space-between",

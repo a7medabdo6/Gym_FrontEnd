@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,ScrollView,TouchableOpacity,SafeAreaView } from 'react-native'
+import { View, Text,StyleSheet,ScrollView,TouchableOpacity,SafeAreaView ,Image} from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,22 +16,28 @@ const Home = ({ navigation }) => {
  <ScrollView style={{flex:1,marginTop:25}}>
         <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
             <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
-            <MaterialCommunityIcons  name="bell-alert-outline" size={30} color="green" />
-
-            <AntDesign style={{marginHorizontal:20}} name="user" size={30} color="green" />
-        
+            <Image 
+               source={require('../../assets/images/notification.png')}
+               style={styles.image}
+            />
+ <Image 
+               source={require('../../assets/images/profile-green.png')}
+               style={[styles.image,{marginHorizontal:15  }]}
+            />        
         <Text style={styles.text} >اسم المستخدم</Text>
             </View>
 
-      <View>
-      <AntDesign  name="menufold" size={30} color="green" />
-
+            <View >
+    <Image 
+               source={require('../../assets/images/menu-green.png')}
+               style={styles.image}
+            />
 
       </View>
 
         </View>
         <View>
-        <TouchableOpacity     onPress={() => navigation.navigate('Gym')}>
+        <TouchableOpacity    onPress={() => navigation.navigate('Gym')}>
         <Card titletext=" النوادي الرياضيه" text="ستجد افضل  النوادي الرياضيه القريبه اليك مع افضل   العروض الترويجيه" imageSource={imgsourceGym}/>
         </TouchableOpacity>
         <TouchableOpacity     onPress={() => navigation.navigate('Clinic')}>
@@ -74,6 +80,11 @@ const styles = StyleSheet.create({
   
       
     },
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
     input: {
       height: 50,
       backgroundColor: '#fff',
@@ -87,7 +98,7 @@ const styles = StyleSheet.create({
     text:{
       fontSize:12,
       fontFamily:"Cairo-Bold",
-      color:"green"
+      color:"#729e25",
     },
     buttonContainer: {
       flexDirection: 'row',

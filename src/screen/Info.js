@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,ScrollView,SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image,SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
 import { FontName } from '../Ulits/FontName';
@@ -7,7 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Info = ({ navigation }) => {
   return (
-    <ScrollView style={styles.page}>
+    <View style={styles.page}>
    
    <LinearGradient
     colors={['#729E25', '#79A52C', '#98C14B']}
@@ -17,16 +17,21 @@ const Info = ({ navigation }) => {
   >
     <View style={{ flex: 1 }}>
     <View style={{marginLeft:10,marginTop:20}}>
-      <AntDesign  name="menufold" size={40} color="white" />
-
+    <Image 
+               source={require('../../assets/images/menu.png')}
+               style={styles.image}
+            />
 
       </View>
       <View style={styles.line2}></View>
     <View style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
 
    
-    <Icon name="drum-steelpan" size={100} color="white" />
-      <Text style={styles.textTop}>Nutri GYM</Text>
+    <Image 
+               source={require('../../assets/images/logo_without.png')}
+               style={styles.dumbel}
+            />
+                  <Text style={styles.textTop}>Nutri GYM</Text>
       
 
 
@@ -53,7 +58,7 @@ const Info = ({ navigation }) => {
       <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>المزيد من المعلومات</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('WelcomeScreen')}>
+      <TouchableOpacity style={styles.buttonafter} onPress={() => navigation.navigate('WelcomeScreen')}>
         <Text style={styles.buttonText}>تخطي</Text>
       </TouchableOpacity>
     </View>
@@ -62,7 +67,7 @@ const Info = ({ navigation }) => {
 
     </LinearGradient>
     
-    </ScrollView>
+    </View>
 
  
 
@@ -83,8 +88,17 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 5,
   },
-  line1:{backgroundColor:"white",width:"50%",height:10,marginVertical:"5%",left:0},
-  line2:{backgroundColor:"white",width:"50%",height:10,marginVertical:"5%"},
+  image:{
+    height:50,
+    width:50,
+    color:"white"
+},
+dumbel:{
+  height:150,
+  width:150,
+},
+  line1:{backgroundColor:"white",width:"50%",height:7,marginVertical:"5%",left:0},
+  line2:{backgroundColor:"white",width:"50%",height:7,marginVertical:"5%"},
   text: {
     fontSize: 15,
     fontFamily: "Cairo-Bold",
@@ -98,15 +112,24 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
+    borderRadius: 4,
+    padding: 15,
     marginHorizontal: 10,
+  },
+  buttonafter: {
+    backgroundColor: 'white',
+    borderRadius: 4,
+    padding: 15,
+    marginHorizontal: 10,
+    width:130,
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center"
   },
   buttonText: {
     fontSize: 15,
-    fontWeight: 'bold',
     color: 'green',
-    fontFamily: "Cairo-Bold",
+    fontFamily: "Cairo-Regular",
 
   },
   page:{

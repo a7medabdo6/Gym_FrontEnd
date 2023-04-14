@@ -15,11 +15,12 @@ const Card = ({titletext,text,imageSource}) => {
     >
 <View style={styles.gradient}>
     <LinearGradient
-    style={{ height:150, opacity: 0.7,borderRadius:10}}
-    colors={['#9CC05B', 'rgba(255, 255, 255, 0.5)']}
+    style={{ height:150, opacity: 0.7,borderRadius:10,flex:1}}
+    colors={['#8cb63f', 'transparent']}
     // colors={['#9DC15B', 'white','rgba(0, 0, 0, 0)']}
-    start={{ x: 1, y: 0 }}
-    end={{ x: 1, y: 1 }}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 0, y: 1 }}
+   
   >
         
         </LinearGradient>
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     container: {
          position:"relative",
          borderRadius:20,
-         marginBottom:20
+         marginBottom:0
   
       
     },
@@ -58,24 +59,24 @@ const styles = StyleSheet.create({
       fontSize:20,
       fontFamily:"Cairo-Bold",
       color:"white",
-      textShadowColor: 'rgba(0, 0, 0, 0.5)',
-       textShadowOffset: { width: 2, height: 5 },
-        textShadowRadius: 2 ,
+      // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+      //  textShadowOffset: { width: 2, height: 5 },
+      //   textShadowRadius: 2 ,
         position:"absolute",
-        top:-150,
+        top:-120,
         right:"2%",
 
     },
     text:{
-        marginTop:10,
+        marginTop:3,
         fontSize:12,
-        fontFamily:"Cairo-Bold",
+        fontFamily:"Cairo-Regular",
         color:"white",
-        textShadowColor: 'rgba(0, 0, 0, 0.5)',
-        textShadowOffset: { width: 2, height: 5 },
-         textShadowRadius: 2 ,
+        // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        // textShadowOffset: { width: 2, height: 5 },
+        //  textShadowRadius: 2 ,
          position:"absolute",
-         top:-100,
+         top:-80,
          right:"2%",
          marginHorizontal:10
       },
@@ -88,8 +89,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    height:150,
-    marginTop:20,
+    height:125,
+    marginTop:"4%",
     marginHorizontal:20,
     borderRadius: 10, // set the border radius to 20
     overflow: 'hidden',

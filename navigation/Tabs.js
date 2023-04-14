@@ -12,7 +12,7 @@ import FavStack from './FavStack';
 import Calender from '../src/screen/Calender';
 import Profile from '../src/screen/Profile';
 import Today from '../src/screen/Today';
-
+import {Image,StyleSheet}from "react-native"
 
 const Tab = createBottomTabNavigator();
 
@@ -34,8 +34,8 @@ function MyTabs() {
             // right:20,
             elevation:0,
             backgroundColor:COLORS.mainColor,
-            borderBottomLeftRadius:20,
-            borderBottomRightRadius:20,
+            borderBottomLeftRadius:0,
+            borderBottomRightRadius:0,
             // borderRadius:15,
             height:"10%"
         },
@@ -61,7 +61,10 @@ function MyTabs() {
       <Tab.Screen name="Today" component={Today} 
        options={{
         tabBarIcon: ({ focused, color, size }) => (
-            <Icon name="drum-steelpan" size={40} color="white" />
+          <Image 
+          source={require('../assets/images/dumbel-small.png')}
+          style={{ width: 50, height: 50 }}
+       />
             ),
       }} />
       
@@ -69,8 +72,12 @@ function MyTabs() {
 
 <Tab.Screen name="Profile" component={Profile} options={{
         tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={focused ? 'person' : 'person-outline'} size={40} color="white" />
-            ),
+         <Image 
+               source={require('../assets/images/profile.png')}
+               style={{ width: 50, height: 50 }}
+
+            />  
+                        ),
       }} />
 <Tab.Screen name="calender" component={Calender} options={{
         tabBarIcon: ({ focused, color, size }) => (
@@ -88,5 +95,7 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
+
+
 
 export default MyTabs

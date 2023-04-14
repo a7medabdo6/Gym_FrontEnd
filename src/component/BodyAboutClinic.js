@@ -8,27 +8,26 @@ const BodyAboutClinic = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-            <Image 
-               source={require('../../assets/images/undraw.png')}
-               style={styles.image}
-            />
-            </View>
-            <Text style={styles.text}>عياده X للتغذيه</Text>
-            <Text style={styles.title}>تاسست عياده x في عام 1992 علي يد اكبر الاطباء خبره وهي مختصه فالصحه والتغذيه السليمه</Text>
-            <Button text="    منتجاتنا" bckColor="#808080"/>
+  <View>
+    <Image 
+      source={require('../../assets/images/undraw.png')}
+      style={styles.image}
+    />
+  </View>
 
-            <Button text="   تواصل معنا" bckColor={COLORS.mainColor}/>
+  <Text style={styles.text}>عياده X للتغذيه</Text>
 
-            
-            <TouchableOpacity     onPress={() => navigation.navigate('ScheduledExercises')}>
-            <Button text="   التمارين المقرره" bckColor={COLORS.mainColor}/>
-            </TouchableOpacity>
+  <Text style={styles.title}>تأسست عياده X في عام 1992 على يد أكبر الأطباء خبرة وهي مختصة في الصحة والتغذية السليمة</Text>
+  <Button text="منتجاتنا" bckColor="#808080"/>
 
-            <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
+  <Button text="تواصل معنا" bckColor={COLORS.mainColor}/>
 
+  <TouchableOpacity onPress={() => navigation.navigate('ScheduledExercises')}>
+    <Button text="التمارين المقررة" bckColor={COLORS.mainColor}/>
+  </TouchableOpacity>
 
-    </View>
+  <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
+</View>
   )
 }
 

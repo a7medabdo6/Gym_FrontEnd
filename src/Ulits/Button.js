@@ -5,7 +5,7 @@ import { COLORS } from './COLORS';
 const Button = ({text,bckColor}) => {
   return (
     <View style={[styles.buttonContainer,{backgroundColor:bckColor}]}>
-            <Text style={styles.buttonText} >  {text}</Text>
+            <Text style={styles.buttonText} >{text}</Text>
 
             </View>
   )

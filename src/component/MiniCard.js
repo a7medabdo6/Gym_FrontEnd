@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
       marginHorizontal:20,
       marginTop:20,
       borderRadius:10,
-      marginVertical:20
+      marginVertical:0
       
   
       
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
       fontSize:12,
       fontFamily:"Cairo-Bold",
       color:"#666666",
-      marginVertical:15,
+      marginVertical:5,
       marginRight:5
 
     },
     textbold:{
-        fontSize:25,
+        fontSize:20,
         fontFamily:"Cairo-Bold",
         color:COLORS.mainColor
       },
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
         width:115,
         height:40,
         backgroundColor:"#F7931E",
-        right:0,
-        bottom:-5,
+        right:-6,
+        bottom:-10,
         display:"flex",
         justifyContent:"center",
         alignItems:"center",

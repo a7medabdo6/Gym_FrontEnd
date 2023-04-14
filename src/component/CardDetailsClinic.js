@@ -1,4 +1,4 @@
-import { View, Text,ScrollView,StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text,ScrollView,StyleSheet, TouchableOpacity,Image } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,8 +28,10 @@ const CardDetailsClinic = () => {
         </View>
 
   <View>
-  <AntDesign  name="menufold" size={30} color="green" />
-
+  <Image 
+               source={require('../../assets/images/menu-green.png')}
+               style={styles.image}
+            />
 
   </View>
 
@@ -74,6 +76,11 @@ const styles = StyleSheet.create({
   
       
     },
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
     icon: {
      padding:1,
      backgroundColor:COLORS.mainColor,

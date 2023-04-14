@@ -35,6 +35,13 @@ import MyComponent from './test';
 import Gym from './src/screen/Gym';
 import CardInfo from './src/component/CardInfoGym';
 import MyTabs from './navigation/Tabs';
+import { Provider } from 'react-redux';
+import {Store} from "./src/server/Store";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Login from './src/screen/Login';
+
+const queryClient = new QueryClient();
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -44,6 +51,9 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
+    <QueryClientProvider client={queryClient}>
+    <Provider store={Store}>
+
     <View style={styles.page}>
 <NavigationContainer  >
       {/* <MyTabs/> */}
@@ -57,7 +67,9 @@ function App() {
 
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  />
         <Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
+        <Stack.Screen name="Login" component={Login}  />
 
+        
         <Stack.Screen name="MyTabs" component={MyTabs}  />
 
         
@@ -70,7 +82,10 @@ function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </View>
-    
+    </Provider>
+
+    </QueryClientProvider>
+
   );
 }
 

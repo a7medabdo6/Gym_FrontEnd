@@ -1,4 +1,4 @@
-import { View, Text,ScrollView,StyleSheet, TouchableOpacity,ImageBackground } from 'react-native'
+import { View, Text,ScrollView,StyleSheet, TouchableOpacity,ImageBackground,Image } from 'react-native'
 import React from 'react'
 import Card from './Card'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,8 +12,10 @@ const CardInfoGym = ({navigation,name}) => {
     
     <View style={{flex:1,backgroundColor:"white",marginBottom:"20%"}}>
         <View style={{margin:20}}>
-        <AntDesign  name="menufold" size={30} color="green" />
-
+        <Image 
+               source={require('../../assets/images/menu-green.png')}
+               style={styles.image}
+            />
         </View>
        
         <View style={styles.boxtop}>
@@ -72,7 +74,11 @@ const styles = StyleSheet.create({
       
     },
 
-   
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
     box1:{
         position:"relative",
         justifyContent:"space-between",
