@@ -7,10 +7,19 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import { COLORS } from '../Ulits/COLORS';
 import MiniCard from './MiniCard';
 import { useNavigation } from '@react-navigation/native';
+import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
+import { GetBusinesApi } from '../server/Hook/Menu/Get-Busines-Hook';
+import { useSelector } from 'react-redux';
 
-const CardDetailsStores = () => {
+const CardDetailsStores = ({itemId}) => {
     const navigation = useNavigation();
 
+    const {data:menu} =  GetMenuApi()
+    const {GetMenuData} = useSelector(state => state.GetMenuRedux)
+  
+  
+    const {isLoading,isError,error,data:bus} =  GetBusinesApi(itemId)
+    const {GetBusinesData} = useSelector(state => state.GetBusinesRedux)
   return (
     <View style={{flex:1,marginBottom:"20%",backgroundColor:"white"}}>
         <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20,paddingVertical:20}}>
@@ -41,9 +50,17 @@ const CardDetailsStores = () => {
 
 
         <ScrollView>
-        <Card titletext="   المتاجر " text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourcestores}/>
-
-        <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores')}>
+        <Card titletext="   المتاجر " text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[5]?.cover}/>
+        {
+          GetBusinesData?.data?.busines.map((item,index)=>{
+            return(
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores')}>
+        <MiniCard title={item?.name} text="       تصفح الالف المنتجات الخاصه  بك " adress="  طبربور  - بالقرب من -"/>
+        </TouchableOpacity>
+            )
+          })
+        }
+        {/* <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores')}>
         <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
         <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
@@ -52,7 +69,7 @@ const CardDetailsStores = () => {
 
         <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
         <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
+        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/> */}
 
         </ScrollView>
         </View>

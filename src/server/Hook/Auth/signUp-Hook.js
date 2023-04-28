@@ -49,7 +49,6 @@ export const SignUpApi = data =>{
           //   dispatch(errorAtLogin(err.response.data.detail));
           //  return err;
          
-          notify(result.data,"error")       
   
         }
       }))

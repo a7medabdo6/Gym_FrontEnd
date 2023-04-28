@@ -11,6 +11,7 @@ import { COLORS } from '../src/Ulits/COLORS';
 import FavStack from './FavStack';
 import Calender from '../src/screen/Calender';
 import Profile from '../src/screen/Profile';
+
 import Today from '../src/screen/Today';
 import {Image,StyleSheet}from "react-native"
 
@@ -52,7 +53,7 @@ function MyTabs() {
       <Tab.Screen name="Fav" component={FavStack} 
        options={{
         tabBarIcon: ({ focused, color, size }) => (
-          <AntDesign name={focused ? 'heart' : 'hearto'} size={40} color="white" />
+          <AntDesign name='heart' size={40} color={focused ? 'grey' : 'white'} />
         ),
     }} />
    
@@ -61,33 +62,47 @@ function MyTabs() {
       <Tab.Screen name="Today" component={Today} 
        options={{
         tabBarIcon: ({ focused, color, size }) => (
-          <Image 
-          source={require('../assets/images/dumbel-small.png')}
-          style={{ width: 50, height: 50 }}
-       />
+          focused ? <Image 
+            source={require('../assets/images/dumbbellgrey.png')}
+            style={{ width: 50, height: 50 }}
+
+         />  : <Image 
+            source={require('../assets/images/dumbel-small.png')}
+            style={{ width: 50, height: 50 }}
+
+         /> 
+          
+       
             ),
       }} />
       
  
-
+      
 <Tab.Screen name="Profile" component={Profile} options={{
         tabBarIcon: ({ focused, color, size }) => (
-         <Image 
-               source={require('../assets/images/profile.png')}
-               style={{ width: 50, height: 50 }}
+          
+            focused ? <Image 
+            source={require('../assets/images/profilegrey.png')}
+            style={{ width: 50, height: 50 }}
 
-            />  
+         />  : <Image 
+            source={require('../assets/images/profile.png')}
+            style={{ width: 50, height: 50 }}
+
+         /> 
+          
+     
                         ),
       }} />
 <Tab.Screen name="calender" component={Calender} options={{
         tabBarIcon: ({ focused, color, size }) => (
-            <AntDesign name="calendar" size={40} color="white" />
+            <AntDesign name="calendar" size={40} color={focused ? 'grey' : 'white'} />
             ),
       }} />
 
 <Tab.Screen name="WelcomeScreen" component={WelcomeScreen} options={{
         tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="settings" size={40} color="white" />
+            <Ionicons name="settings" size={40} color={focused ? 'grey' : 'white'} />
             ),
       }} />
       

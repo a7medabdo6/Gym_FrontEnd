@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -39,6 +39,9 @@ import { Provider } from 'react-redux';
 import {Store} from "./src/server/Store";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Login from './src/screen/Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoadingScreen from './src/screen/LoadingScreen';
+import Wlc from './src/screen/Wlc';
 
 const queryClient = new QueryClient();
 
@@ -50,6 +53,31 @@ type SectionProps = PropsWithChildren<{
 const Stack = createStackNavigator();
 
 function App() {
+  const [token,settoken]=useState("")
+  const [username,setusername]=useState("")
+
+  async function printToken() {
+    try {
+      // قراءة قيمة الـ "Token" من Local Storage
+      const token = await AsyncStorage.getItem('Token');
+      const username = await AsyncStorage.getItem('username');
+
+      if(token)
+      settoken(token)
+
+      if(username)
+      setusername(username)
+
+    } catch (error) {
+      console.log('حدث خطأ في قراءة البيانات:', error);
+    }
+  }
+  console.log('Token8888:', token);
+  console.log('dataaaa:', username);
+
+
+  // استدعاء الدالة لطباعة قيمة الـ "Token"
+  printToken();
   return (
     <QueryClientProvider client={queryClient}>
     <Provider store={Store}>
@@ -58,24 +86,36 @@ function App() {
 <NavigationContainer  >
       {/* <MyTabs/> */}
       <Stack.Navigator 
-      
+      initialRouteName="Enter"
       screenOptions={{
         headerShown: false
         
       }}>
-                <Stack.Screen name="Enter" component={Info}  />
+        {/* {
+          token ? (        <Stack.Screen name="MyTabs" component={MyTabs}  />
+          ):(
+            <>
+              <Stack.Screen name="Enter" component={Info}  />
+              <Stack.Screen name="LoadingScreen" component={LoadingScreen}  />
 
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  />
-        <Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
-        <Stack.Screen name="Login" component={Login}  />
+              <Stack.Screen name="MyTabs" component={MyTabs}  />
+<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  />
+<Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
+<Stack.Screen name="Login" component={Login}  />
 
-        
-        <Stack.Screen name="MyTabs" component={MyTabs}  />
 
-        
-        {/* <Stack.Screen name="Home" component={Home}  />
+            </>
+          )
+        } */}
+              
+
+              <Stack.Screen name="wlc" component={Wlc}  />
+              <Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
+              <Stack.Screen name="MyTabs" component={MyTabs}  />
+              <Stack.Screen name="Login" component={Login}  />
+        <Stack.Screen name="Home" component={Home}  />
         <Stack.Screen name="Gym" component={Gym}  />
-        <Stack.Screen name="Info" component={CardInfo}  /> */}
+        {/* <Stack.Screen name="Info" component={CardInfo}  /> */}
 
 
 

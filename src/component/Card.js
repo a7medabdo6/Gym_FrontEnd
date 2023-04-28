@@ -6,11 +6,11 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 const Card = ({titletext,text,imageSource}) => {
-  
   return (
     <ScrollView style={styles.container}>
     <ImageBackground
-      source={imageSource}
+    
+      source={{ uri: imageSource }}
       style={styles.imageBackground}
     >
 <View style={styles.gradient}>

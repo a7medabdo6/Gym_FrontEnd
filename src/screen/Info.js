@@ -10,7 +10,7 @@ const Info = ({ navigation }) => {
     <View style={styles.page}>
    
    <LinearGradient
-    colors={['#729E25', '#79A52C', '#98C14B']}
+    colors={['#8cb63f', '#79A52C', '#98C14B']}
     style={styles.page}
     start={{ x: 0, y: 0 }}
     end={{ x: 1, y: 1 }}

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Button,Text ,TouchableOpacity,Alert} from 'react-native';
+import { View, TextInput, StyleSheet, Button,Text ,TouchableOpacity,Alert, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../Ulits/COLORS';
 import { SignInApi } from '../server/Hook/Auth/signIn-Hook';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Entypo from 'react-native-vector-icons/Entypo';
+
+
 
 const Login = () => {
     const navigation = useNavigation();
@@ -12,6 +16,9 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [color, setcolor] = useState(false);
   const [backcolor, setbackcolor] = useState(false);
 
@@ -46,7 +53,31 @@ const Login = () => {
 
   const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
   const {SignInData} = useSelector(state => state.SignInRedux)
-console.log(SignInData);
+
+  async function setToken(token,username) {
+    try {
+      // ضبط قيمة الـ "Token" في Local Storage
+      await AsyncStorage.setItem('Token', token);
+      await AsyncStorage.setItem('username', username);
+
+      console.log('تم ضبط قيمة الـ "TokenN" بنجاح:', token);
+      console.log('تم ضبط قيمة الـ "dataaaaa" بنجاح:', username);
+
+    } catch (error) {
+      console.log('ooooooooo', error);
+    }
+  }
+
+  // استدعاء الدالة لضبط قيمة الـ "Token"
+  useEffect(()=>{
+    if(SignInData){
+      let token = SignInData?.Token
+      let username = SignInData?.username
+
+      setToken(token,username);
+    }
+  },[SignInData])
+  
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
 
@@ -54,7 +85,9 @@ console.log(SignInData);
     setEmail(text);
     setIsValidEmail(true); // Reset email validation state on each change
   };
-
+  const handleToggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const handleEmailSubmit = () => {
     // Email validation using regular expression
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -149,68 +182,91 @@ useEffect(()=>{
 },[SignInData])
   return (
   
-  <View style={{flex:1,position:"relative",zIndex:-1,backgroundColor:"#729e25"}}>
-    <View style={{backgroundColor:"#729e25",height:"20%",width:"100%"}}>
-
-    </View>
+   
 <View style={styles.container}>
+
+  <View style={styles.logo}>
+  <Image 
+               source={require('../../assets/images/logo_without.png')}
+               style={styles.dumbel}
+            />  
+  </View>
        
-       {/* <View>
-        <Text style={styles.text}> الاسم</Text>
-       <TextInput
-       style={styles.input}
-       placeholderTextColor="grey"
+      
+<Text style={{color:"black",fontWeight:"900",fontSize:25,marginBottom:30}}>Sign In</Text>
 
-       placeholder="Username"
-       value={username}
-       onChangeText={handleUsernameChange}
-     />
-       </View> */}
-    <View>
-    <Text style={styles.text}>الربيد الالكتروني </Text>
-
-    <TextInput
-       style={styles.input}
-       placeholderTextColor="grey"
-
-       placeholder="Email"
-       value={email}
-       onChangeText={handleEmailChange}
-     />
-    </View>
-   <View>
-   <Text style={styles.text}>كلمة السر </Text>
-   <TextInput
-       style={styles.input}
-       placeholder="Password"
-       placeholderTextColor="grey"
-       secureTextEntry={true}
-       value={password}
-       onChangeText={handlePasswordChange}
-     />
-   </View>
+<View style={styles.inputContainer}>
+        <Entypo name="mail" size={24} color="grey" style={styles.icon} />
+        <TextInput
+          style={[styles.input, !isEmailValid && styles.invalidInput]}
+          placeholder="Email"
+          placeholderTextColor="#7C9E3D"
+          value={email}
+          onChangeText={handleEmailChange}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </View>
+   
+      {!isEmailValid && <Text style={styles.error}>Please enter a valid email address</Text>}
+      <View style={styles.inputContainer}>
+        <Entypo name="lock" size={24} color="grey" style={styles.icon} />
+        <TextInput
+          style={[styles.input, !isPasswordValid && styles.invalidInput]}
+          placeholder="Password"
+          placeholderTextColor="#7C9E3D"
+          value={password}
+          onChangeText={handlePasswordChange}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <TouchableOpacity onPress={handleToggleShowPassword}>
+          <Entypo name={showPassword ? "eye-with-line" : "eye"} size={24} color="grey" style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+      {!isPasswordValid && <Text style={styles.error}>Please enter a password</Text>}
    <View>
       
    </View>
    <View style={{display:"flex",justifyContent:"center",alignItems:"center",width:"100%"}}>
    {!isValidEmail && (
-        <Text style={styles.errorText}>Please enter a valid email address</Text>
+        <Text style={styles.error}>Please enter a valid email address</Text>
       )}
        {!isValidPassword && (
-        <Text style={styles.errorText}>
+        <Text style={styles.error}>
           Password must be between 8 and 20 characters and can only contain letters, numbers, and special characters: !@#$%^&*
         </Text>
       )}
    </View>
-   
-    
-     <View style={styles.buttonContainer}>
+   <Text style={{color:"#7B9D3C",fontFamily:"bold",textAlign:"center",marginVertical:10}}>or</Text>
+
+    <View         style={styles.social}
+>
+    <Image
+        style={styles.iconsocial}
+        source={require('../../assets/images/apple.png')}
+      />
+        <Image
+        style={styles.iconsocial}
+        source={require('../../assets/images/gogle.png')}
+      />
+        <Image
+        style={styles.iconsocial}
+        source={require('../../assets/images/facebook.png')}
+      />
+    </View>
+     
      <TouchableOpacity onPress={handleEmailSubmit}  >
-       <Text style={{paddingHorizontal:80,paddingVertical:15,backgroundColor:COLORS.mainColor,borderRadius:30,color:"white",fontFamily:"bold"}}>تسجيل دخول</Text>
+      <View style={styles.buttonContainer} >
+      <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>Sign in</Text>
+
+      </View>
        </TouchableOpacity> 
-     </View>
+       <Text style={styles.text}>Forget Password?</Text>
+      <View style={styles.line} />     
    </View>
-  </View>
     
   );
 };
@@ -218,50 +274,91 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    justifyContent: "flex-start",
+    justifyContent: 'center',
+    alignItems:"center",
     paddingHorizontal: 20,
-    position:"absolute",
-    top:80,
-    width:"100%",
-    paddingTop:150,
-    height:"91%",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    zIndex:1
-
-    
   },
-  inputError: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 16,
-    textAlign:"center"
-  },
-  input: {
-    height: 50,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    borderColor:"black",
-    borderBottomWidth:1
-    
-  },
-  text:{
-    fontSize:15,
-    color:"black",
-    fontFamily:"Cairo-Bold"
-  },
-  buttonContainer: {
+  inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    marginBottom:"20%"
+    alignItems: 'center',
+    marginBottom: 20,
   },
-});
+  dumbel: {
+    height:100,
+    width:100,
+},
+logo:{
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+backgroundColor:"#7B9B3C",
+borderRadius:70,
+width: 120,
+height: 120,
+opacity:0.9,
+marginBottom:"20%"
+},
+  input: {
+    flex: 1,
+    height: 50,
+    fontSize: 16,
+    paddingLeft: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+    color: 'black',
+  },
+  icon: {
+    marginRight: 10,
+    opacity:0.4
+  },
+  invalidInput: {
+    borderBottomColor: 'red',
+  },
+  error: {
+    color:"red",
+    textAlign:"center",
+  },
+  buttonContainer:{
+    display:"flex",
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 5,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  social:{
+    display:"flex",
+width:"60%",
+  flexDirection:"row",
+    justifyContent:"space-around",
+    alignItems:"center",
+    marginVertical:"10%"
+  },
+  iconsocial:{
+    width:50,
+    height:50
+  },
+  
+  text: {
+    fontSize: 16,
+    marginTop: 20,
+    marginBottom: 3,
+    color:"#7C9E3D"
+  },
+  line: {
+    borderBottomColor: '#7C9E3D',
+    borderBottomWidth: 1,
+    width: 150,
+
+  },
+  })
 
 
 export default Login

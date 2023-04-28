@@ -7,7 +7,7 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex:1,height:150 }}>
  <LinearGradient
-    colors={['#729E25', '#79A52C', '#98C14B']}
+    colors={['#8cb63f', '#79A52C', '#98C14B']}
     style={styles.lainer}
     start={{ x: 0, y: 0 }}
     end={{ x: 1, y: 1 }}

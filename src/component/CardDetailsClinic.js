@@ -7,8 +7,19 @@ import { COLORS } from '../Ulits/COLORS';
 import MiniCard from './MiniCard';
 import imgsourceFood from "../../assets/images/food.jpg"
 import { useNavigation } from '@react-navigation/native';
-const CardDetailsClinic = () => {
+import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
+import { useSelector } from 'react-redux';
+import { GetBusinesApi } from '../server/Hook/Menu/Get-Busines-Hook';
+const CardDetailsClinic = ({itemId}) => {
     const navigation = useNavigation();
+
+    const {data:menu} =  GetMenuApi()
+    const {GetMenuData} = useSelector(state => state.GetMenuRedux)
+  
+  
+    const {isLoading,isError,error,data:bus} =  GetBusinesApi(itemId)
+    const {GetBusinesData} = useSelector(state => state.GetBusinesRedux)
+    // console.log(GetBusinesData?.data?.busines,"9999999999999999");
 
   return (
     <View style={{flex:1,marginBottom:"20%",backgroundColor:"white"}}>
@@ -40,18 +51,28 @@ const CardDetailsClinic = () => {
 
 
     <ScrollView>
-    <Card titletext="عيادات التغذيه" text="ستجد افضل عيادات التغذيه القريبه اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourceFood}/>
 
-    <TouchableOpacity onPress={() => navigation.navigate('CardInfoClinic')}>
-    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
-    </TouchableOpacity>
-    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
+      
+    <Card titletext="عيادات التغذيه" text="ستجد افضل عيادات التغذيه القريبه اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[1]?.cover}/>
+    {
+          GetBusinesData?.data?.busines.map((item,index)=>{
+            return(
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoClinic')}>
+        <MiniCard title={item?.name} text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress="  طبربور  - بالقرب من -"/>
+        </TouchableOpacity>
+            )
+          })
+        }
+     {/* <TouchableOpacity onPress={() => navigation.navigate('CardInfoClinic')}>
+     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
+     </TouchableOpacity>
+     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
+
+     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
 
     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
-
     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
-    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
-    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
+    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/> */}
 
     </ScrollView>
     </View>

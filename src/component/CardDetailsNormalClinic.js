@@ -8,9 +8,19 @@ import MiniCard from './MiniCard';
 import imgsourceFood from "../../assets/images/food.jpg"
 import { useNavigation } from '@react-navigation/native';
 import imgsourceclinic from "../../assets/images/clinic.jpg"
+import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
+import { useSelector } from 'react-redux';
+import { GetBusinesApi } from '../server/Hook/Menu/Get-Busines-Hook';
 
-const CardDetailsNormalClinic = () => {
+const CardDetailsNormalClinic = ({itemId}) => {
     const navigation = useNavigation();
+
+    const {data:menu} =  GetMenuApi()
+    const {GetMenuData} = useSelector(state => state.GetMenuRedux)
+  
+  
+    const {isLoading,isError,error,data:bus} =  GetBusinesApi(itemId)
+    const {GetBusinesData} = useSelector(state => state.GetBusinesRedux)
 
   return (
     <View style={{flex:1,marginBottom:"20%",backgroundColor:"white"}}>
@@ -42,9 +52,18 @@ const CardDetailsNormalClinic = () => {
 
 
     <ScrollView>
-    <Card titletext="عيادات العلاج الطبيعي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourceclinic}/>
+    <Card titletext="عيادات العلاج الطبيعي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[2]?.cover}/>
+    {
+          GetBusinesData?.data?.busines.map((item,index)=>{
+            return(
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic')}>
+        <MiniCard title={item?.name} text="عياده متخصصه    بالعلاج الطبيعي وعلاج الالم المفاصل " adress="  طبربور  - بالقرب من -"/>
+        </TouchableOpacity>
+            )
+          })
+        }
 
-    <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic')}>
+    {/* <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic')}>
     <MiniCard title="عياده X  للعلاج الطبيعي " text="عياده متخصصه    بالعلاج الطبيعي وعلاج الالم المفاصل " adress="المقابلين - الشارع الرئيسي"/>
     </TouchableOpacity>
     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
@@ -53,7 +72,7 @@ const CardDetailsNormalClinic = () => {
 
     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
     <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
-    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/>
+    <MiniCard title="عياده X للياقه البدنيه " text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress=" جبل الحسين - دوار فراس"/> */}
 
     </ScrollView>
     </View>
