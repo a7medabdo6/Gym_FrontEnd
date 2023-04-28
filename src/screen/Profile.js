@@ -44,7 +44,7 @@ const Profile = () => {
       AsyncStorage.removeItem('Token');
       
       const token = await AsyncStorage.getItem('Token');
-      RNRestart.restart();
+      RNRestart.Restart();
       // navigation.navigate('Wlc')
 
     }

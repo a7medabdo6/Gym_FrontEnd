@@ -1,8 +1,35 @@
-import { View, Text ,StyleSheet,Image} from 'react-native'
-import React from 'react'
+import { View, Text ,StyleSheet,Image, TouchableOpacity} from 'react-native'
+import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const TopMenu = () => {
+const TopMenu = ({navigation}) => {
+    const [token,settoken]=useState("")
+    const [username,setusername]=useState("")
+  
+    async function printToken() {
+      try {
+        // قراءة قيمة الـ "Token" من Local Storage
+        const token = await AsyncStorage.getItem('Token');
+        const username = await AsyncStorage.getItem('username');
+  
+        if(token)
+        settoken(token)
+  
+        if(username)
+        setusername(username)
+  
+      } catch (error) {
+        console.log('حدث خطأ في قراءة البيانات:', error);
+      }
+    }
+    console.log('Token8888:', token);
+    console.log('dataaaa:', username);
+  
+  
+    // استدعاء الدالة لطباعة قيمة الـ "Token"
+    printToken();
+
   return (
     <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
     <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
@@ -14,14 +41,17 @@ const TopMenu = () => {
        source={require('../../assets/images/profile-green.png')}
        style={[styles.image,{marginHorizontal:15  }]}
     />        
-<Text style={styles.text} >اسم المستخدم</Text>
+<Text style={styles.text} > {username} </Text>
     </View>
 
     <View >
-<Image 
+      <TouchableOpacity onPress={()=> navigation.openDrawer()}>
+      <Image 
        source={require('../../assets/images/menu-green.png')}
        style={styles.image}
     />
+      </TouchableOpacity>
+
 
 </View>
 
