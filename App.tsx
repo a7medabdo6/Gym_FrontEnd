@@ -42,6 +42,7 @@ import Login from './src/screen/Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingScreen from './src/screen/LoadingScreen';
 import Wlc from './src/screen/Wlc';
+import SplashScreen from 'react-native-splash-screen'
 
 const queryClient = new QueryClient();
 
@@ -53,14 +54,41 @@ type SectionProps = PropsWithChildren<{
 const Stack = createStackNavigator();
 
 function App() {
+
+  
   const [token,settoken]=useState("")
   const [username,setusername]=useState("")
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(false);
+
+    useEffect(()=>{
+
+
+    AsyncStorage.getItem('showWelcomeScreen').then(value => {
+      if (!value) {
+        // If not, set flag to true and store in AsyncStorage
+        setShowWelcomeScreen(true);
+        AsyncStorage.setItem('showWelcomeScreen', 'true');
+      }
+    });
+  },[])
+
+  useEffect(() => {
+  
+    setTimeout(() => {
+      SplashScreen.hide(); // إخفاء شاشة البداية بعد 3 ثواني
+    }, 3000);
+  }, []);
+
 
   async function printToken() {
     try {
       // قراءة قيمة الـ "Token" من Local Storage
       const token = await AsyncStorage.getItem('Token');
       const username = await AsyncStorage.getItem('username');
+      const lanch = await AsyncStorage.getItem('showWelcomeScreen');
+
+      console.log('laaaaaaaaaaaa:', showWelcomeScreen);
+
 
       if(token)
       settoken(token)
@@ -86,40 +114,42 @@ function App() {
 <NavigationContainer  >
       {/* <MyTabs/> */}
       <Stack.Navigator 
-      initialRouteName="Enter"
-      screenOptions={{
+    initialRouteName={showWelcomeScreen === true ? 'WelcomeScreen' : 'Enter'}
+    screenOptions={{
         headerShown: false
         
       }}>
-        {/* {
+        {
           token ? (        <Stack.Screen name="MyTabs" component={MyTabs}  />
           ):(
             <>
-              <Stack.Screen name="Enter" component={Info}  />
-              <Stack.Screen name="LoadingScreen" component={LoadingScreen}  />
+              
+              <Stack.Screen name="wlc" component={Wlc}  />
 
               <Stack.Screen name="MyTabs" component={MyTabs}  />
-<Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  />
+              {showWelcomeScreen === true && <Stack.Screen name="Enter" component={Info}  />}
 <Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
 <Stack.Screen name="Login" component={Login}  />
 
 
             </>
           )
-        } */}
+        }
               
 
-              <Stack.Screen name="wlc" component={Wlc}  />
+              {/* <Stack.Screen name="wlc" component={Wlc}  />
               <Stack.Screen name="NewAccountScreen" component={NewAccountScreen}  />
               <Stack.Screen name="MyTabs" component={MyTabs}  />
               <Stack.Screen name="Login" component={Login}  />
         <Stack.Screen name="Home" component={Home}  />
-        <Stack.Screen name="Gym" component={Gym}  />
+        <Stack.Screen name="Gym" component={Gym}  /> */}
         {/* <Stack.Screen name="Info" component={CardInfo}  /> */}
 
 
 
       </Stack.Navigator>
+
+      
     </NavigationContainer>
     </View>
     </Provider>

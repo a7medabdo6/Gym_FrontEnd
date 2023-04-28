@@ -10,6 +10,7 @@ import imgsourceres from "../../assets/images/res.jpg"
 import imgsourcestores from "../../assets/images/stores.jpg"
 import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
 import { useSelector } from 'react-redux';
+import TopMenu from '../component/TopMenu';
 
 
 const Home = ({ navigation }) => {
@@ -20,7 +21,8 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex:1,marginBottom:"20%"}}> 
  <ScrollView style={{flex:1,marginTop:25}}>
-        <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
+  <TopMenu />
+        {/* <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
             <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
             <Image 
                source={require('../../assets/images/notification.png')}
@@ -41,7 +43,7 @@ const Home = ({ navigation }) => {
 
       </View>
 
-        </View>
+        </View> */}
         <View>
           {
             GetMenuData?.data?.categoreis?.map((item,index)=>{

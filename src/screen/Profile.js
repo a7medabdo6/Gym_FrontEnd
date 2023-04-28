@@ -1,4 +1,4 @@
-import { View, Text ,StyleSheet,ScrollView,TouchableOpacity,Image} from 'react-native'
+import { View, Text ,StyleSheet,ScrollView,TouchableOpacity,Image, Linking} from 'react-native'
 import React, { useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,6 +7,8 @@ import BodyAboutNormalClinic from '../component/BodyAboutNormalClinic';
 import { COLORS } from '../Ulits/COLORS';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart'; // Import package from node modules
+import {nativemodules} from 'react-native';
 
 const Profile = () => {
 
@@ -38,7 +40,12 @@ const Profile = () => {
     // استدعاء الدالة لطباعة قيمة الـ "Token"
     printToken();
 
-    const handelExit =()=>{
+    const handelExit = async()=>{
+      AsyncStorage.removeItem('Token');
+      
+      const token = await AsyncStorage.getItem('Token');
+      RNRestart.restart();
+      // navigation.navigate('Wlc')
 
     }
   return (
