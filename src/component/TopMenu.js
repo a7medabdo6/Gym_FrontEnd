@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const TopMenu = ({navigation}) => {
+const TopMenu = ({navigation,noti,name,ava}) => {
     const [token,settoken]=useState("")
     const [username,setusername]=useState("")
   
@@ -33,15 +33,24 @@ const TopMenu = ({navigation}) => {
   return (
     <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
     <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
-    <Image 
-       source={require('../../assets/images/notification.png')}
-       style={styles.image}
-    />
-<Image 
-       source={require('../../assets/images/profile-green.png')}
-       style={[styles.image,{marginHorizontal:15  }]}
-    />        
-<Text style={styles.text} > {username} </Text>
+      {
+        noti === true ? (  <Image 
+          source={require('../../assets/images/notification.png')}
+          style={styles.image}
+       />):null
+      }
+  
+  {
+    ava === true ? (<Image 
+      source={require('../../assets/images/profile-green.png')}
+      style={[styles.image,{marginHorizontal:15  }]}
+   /> ):null
+  }
+       
+    {
+      name === true ? (<Text style={styles.text} > {username} </Text>
+      ):null
+    }
     </View>
 
     <View >

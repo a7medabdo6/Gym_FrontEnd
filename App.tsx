@@ -46,6 +46,10 @@ import LoadingScreen from './src/screen/LoadingScreen';
 import Wlc from './src/screen/Wlc';
 import SplashScreen from 'react-native-splash-screen';
 import CustomDrawer from './src/component/CustomDrawer';
+import Profile from './src/screen/Profile';
+import ForgetPass from './src/screen/ForgetPass';
+import Verificationcode from './src/screen/Verificationcode';
+import NewPass from './src/screen/NewPass';
 
 const queryClient = new QueryClient();
 
@@ -80,6 +84,13 @@ function App() {
               name="NewAccountScreen"
               component={NewAccountScreen}
             />
+                        <Stack.Screen name="ForgetPass" component={ForgetPass} />
+
+                        <Stack.Screen name="Verificationcode" component={Verificationcode} />
+
+                        <Stack.Screen name="NewPass" component={NewPass} />
+
+                        
             <Stack.Screen name="Login" component={Login} />
           </>
         )}
@@ -104,7 +115,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide(); // إخفاء شاشة البداية بعد 3 ثواني
-    }, 3000);
+    }, 1000);
   }, []);
 
   async function printToken() {
@@ -141,7 +152,8 @@ function App() {
                 options={{headerShown: false}}
                 component={StackTabs}
               />
-              <Drawer.Screen name="Notifications" component={MyTabs}  />
+              <Drawer.Screen                 options={{headerShown: false}}
+ name="profile" component={Profile}  />
             </Drawer.Navigator>
           </NavigationContainer>
         </View>

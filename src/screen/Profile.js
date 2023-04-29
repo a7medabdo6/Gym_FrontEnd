@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart'; // Import package from node modules
 import {nativemodules} from 'react-native';
+import TopMenu from '../component/TopMenu';
 
 const Profile = () => {
 
@@ -44,27 +45,19 @@ const Profile = () => {
       AsyncStorage.removeItem('Token');
       
       const token = await AsyncStorage.getItem('Token');
-      RNRestart.Restart();
+      RNRestart.restart();
       // navigation.navigate('Wlc')
 
     }
   return (
     <View style={styles.page}>
-         <View style={styles.header}>
-         <Image  
-               source={require('../../assets/images/menu-green.png')}
-               style={styles.image}
-            />     
-               <Image 
-               source={require('../../assets/images/notification.png')}
-               style={styles.image}
-            />
-        </View>
+          <TopMenu navigation={navigation} noti={true} ava={false} name={false}/>
+
         <View style={styles.body}>
             <View style={styles.avatar}>
             <AntDesign  name="user" size={80} color="white" />
             <View style={{position:"absolute",bottom:0,right:0}}>
-            <AntDesign   name="camerao" size={40} color="white" />
+            <AntDesign   name="camerao" size={30} color="white" />
 
             </View>
 
@@ -124,6 +117,7 @@ const styles = StyleSheet.create({
     },
     page:{
       flex:1,
+      marginTop:"5%",
       marginBottom:"20%"
       
     },

@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex:1,marginBottom:"20%"}}> 
  <ScrollView style={{flex:1,marginTop:25}}>
-  <TopMenu navigation={navigation}/>
+  <TopMenu navigation={navigation} noti={true} ava={true} name={true}/>
         {/* <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
             <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
             <Image 

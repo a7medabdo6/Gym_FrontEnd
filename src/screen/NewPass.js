@@ -10,12 +10,14 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 
 
-const Login = () => {
+const NewPass = () => {
     const navigation = useNavigation();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [Newpassword, setNewpassword] = useState('');
+
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -23,33 +25,16 @@ const Login = () => {
   const [backcolor, setbackcolor] = useState(false);
 
 
-  const handelColor =()=>{
-    setcolor(true)
-    setbackcolor(flase)
-  }
-  const handelBackColorman =()=>{
-    setcolor(false)
-    setbackcolor(true)
-  }
-  const handelBackColorwoman =()=>{
-    setcolor(false)
-    setbackcolor(false)
-  }
-  const handleUsernameChange = (text) => {
-    setUsername(text);
-  };
+  
 
-  // const handleEmailChange = (text) => {
-  //   setEmail(text);
-  // };
 
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
 
-  const handleCreateAccount = () => {
-    // Handle create account logic here
-  };
+const handlePasswordChangeNewpassword =(text)=>{
+    setNewpassword(text)
+}
 
   const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
   const {SignInData} = useSelector(state => state.SignInRedux)
@@ -88,6 +73,7 @@ const Login = () => {
   const handleToggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  
   const handleEmailSubmit = () => {
     // Email validation using regular expression
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -122,12 +108,7 @@ const Login = () => {
       // Password is valid, submit the form or perform the desired action
     }
 if(isValid ){
-    let data = {
-        "email": email,
-        "password": password
-      }
-    
-    SubmitSignIn(data)
+
 }
     
   };
@@ -193,24 +174,9 @@ useEffect(()=>{
   </View>
        
       
-<Text style={{color:"black",fontWeight:"900",fontSize:25,marginBottom:30}}>Sign In</Text>
+<Text style={{color:"black",fontWeight:"900",fontSize:25,marginVertical:"10%",width:"90%"}}>Enter your new password</Text>
 
 <View style={styles.inputContainer}>
-        <Entypo name="mail" size={24} color="grey" style={styles.icon} />
-        <TextInput
-          style={[styles.input, !isEmailValid && styles.invalidInput]}
-          placeholder="Email"
-          placeholderTextColor="#7C9E3D"
-          value={email}
-          onChangeText={handleEmailChange}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </View>
-   
-      {!isEmailValid && <Text style={styles.error}>Please enter a valid email address</Text>}
-      <View style={styles.inputContainer}>
         <Entypo name="lock" size={24} color="grey" style={styles.icon} />
         <TextInput
           style={[styles.input, !isPasswordValid && styles.invalidInput]}
@@ -218,6 +184,23 @@ useEffect(()=>{
           placeholderTextColor="#7C9E3D"
           value={password}
           onChangeText={handlePasswordChange}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <TouchableOpacity onPress={handleToggleShowPassword}>
+          <Entypo name={showPassword ? "eye-with-line" : "eye"} size={24} color="grey" style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+   
+      <View style={styles.inputContainer}>
+        <Entypo name="lock" size={24} color="grey" style={styles.icon} />
+        <TextInput
+          style={[styles.input, !isPasswordValid && styles.invalidInput]}
+          placeholder="Re-enter Password"
+          placeholderTextColor="#7C9E3D"
+          value={Newpassword}
+          onChangeText={handlePasswordChangeNewpassword}
           secureTextEntry={!showPassword}
           autoCapitalize="none"
           autoCorrect={false}
@@ -240,34 +223,16 @@ useEffect(()=>{
         </Text>
       )}
    </View>
-   <Text style={{color:"#7B9D3C",fontFamily:"bold",textAlign:"center",marginVertical:10}}>or</Text>
 
-    <View         style={styles.social}
->
-    <Image
-        style={styles.iconsocial}
-        source={require('../../assets/images/apple.png')}
-      />
-        <Image
-        style={styles.iconsocial}
-        source={require('../../assets/images/gogle.png')}
-      />
-        <Image
-        style={styles.iconsocial}
-        source={require('../../assets/images/facebook.png')}
-      />
-    </View>
+   
      
      <TouchableOpacity onPress={handleEmailSubmit}  >
       <View style={styles.buttonContainer} >
-      <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>Sign in</Text>
+      <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>Next</Text>
 
       </View>
        </TouchableOpacity> 
-       <TouchableOpacity onPress={()=>{ navigation.navigate('ForgetPass')}}  >
-       <Text style={styles.text}>Forget Password?</Text>
-       </TouchableOpacity> 
-      <View style={styles.line} />     
+      
    </View>
     
   );
@@ -276,9 +241,10 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems:"center",
     paddingHorizontal: 20,
+    marginTop:"10%"
   },
   inputContainer: {
     flexDirection: 'row',
@@ -333,7 +299,8 @@ marginBottom:"20%"
     elevation: 5,
   
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+    marginVertical:"10%"
   },
   social:{
     display:"flex",
@@ -362,5 +329,4 @@ width:"60%",
   },
   })
 
-
-export default Login
+export default NewPass

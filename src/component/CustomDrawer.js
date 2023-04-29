@@ -8,17 +8,8 @@ const CustomDrawer = (props) => {
   return (
     <View style={{flex:1}}>
  <DrawerContentScrollView {...props} contentContainerStyle={{}}>
- <View style={styles.avatar}>
-            <AntDesign  name="user" size={80} color="white" />
-            <View style={{position:"absolute",bottom:0,right:0}}>
-            <AntDesign   name="camerao" size={40} color="white" />
 
-            </View>
-
-
-            
-            </View>
-        <DrawerItemList {...props}/>
+        <DrawerItemList {...props} />
     </DrawerContentScrollView>
     </View>
 
@@ -29,8 +20,10 @@ const CustomDrawer = (props) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'white',
-     marginBottom:"20%"
+      width:"100%",
+      justifyContent:"flex-start",
+      alignItems:"center"
+    
   
     },
     page:{
@@ -78,7 +71,10 @@ marginVertical:5
       backgroundColor:COLORS.mainColor,
       width:100,
       height:100,
-      borderRadius:100
+      borderRadius:100,
+      marginLeft:"50%",
+      transform: [{ translateX: 50 }] 
+     
         
     },
   
