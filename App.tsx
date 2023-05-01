@@ -50,6 +50,8 @@ import Profile from './src/screen/Profile';
 import ForgetPass from './src/screen/ForgetPass';
 import Verificationcode from './src/screen/Verificationcode';
 import NewPass from './src/screen/NewPass';
+import FavStack from './navigation/FavStack';
+import Setting from './src/screen/Setting';
 
 const queryClient = new QueryClient();
 
@@ -71,12 +73,14 @@ function App() {
           headerShown: false,
         }}>
         {token ? (
-          <Stack.Screen name="MyTabs" component={MyTabs} />
+          <Stack.Screen name="FavStack" component={FavStack} />
         ) : (
-          <>
+          // <Stack.Screen name="MyTabs" component={MyTabs} />
+          <> 
             <Stack.Screen name="wlc" component={Wlc} />
+            <Stack.Screen name="FavStack" component={FavStack} />
 
-            <Stack.Screen name="MyTabs" component={MyTabs} />
+            {/* <Stack.Screen name="MyTabs" component={MyTabs} /> */}
             {showWelcomeScreen === true && (
               <Stack.Screen name="Enter" component={Info} />
             )}
@@ -84,13 +88,15 @@ function App() {
               name="NewAccountScreen"
               component={NewAccountScreen}
             />
-                        <Stack.Screen name="ForgetPass" component={ForgetPass} />
+            <Stack.Screen name="ForgetPass" component={ForgetPass} />
 
-                        <Stack.Screen name="Verificationcode" component={Verificationcode} />
+            <Stack.Screen
+              name="Verificationcode"
+              component={Verificationcode}
+            />
 
-                        <Stack.Screen name="NewPass" component={NewPass} />
+            <Stack.Screen name="NewPass" component={NewPass} />
 
-                        
             <Stack.Screen name="Login" component={Login} />
           </>
         )}
@@ -115,7 +121,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide(); // إخفاء شاشة البداية بعد 3 ثواني
-    }, 1000);
+    }, 3000);
   }, []);
 
   async function printToken() {
@@ -146,14 +152,24 @@ function App() {
           <NavigationContainer>
             {/* <MyTabs/> */}
 
-            <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawer {...props}/>}>
+            <Drawer.Navigator
+              initialRouteName="Home"
+              drawerContent={props => <CustomDrawer {...props} />}>
               <Drawer.Screen
                 name="Home"
                 options={{headerShown: false}}
                 component={StackTabs}
               />
-              <Drawer.Screen                 options={{headerShown: false}}
- name="profile" component={Profile}  />
+              <Drawer.Screen
+                options={{headerShown: false}}
+                name="profile"
+                component={Profile}
+              />
+               <Drawer.Screen
+                options={{headerShown: false}}
+                name="Setting"
+                component={Setting}
+              />
             </Drawer.Navigator>
           </NavigationContainer>
         </View>

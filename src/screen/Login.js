@@ -20,48 +20,29 @@ const Login = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [color, setcolor] = useState(false);
-  const [backcolor, setbackcolor] = useState(false);
 
+  const [TokenName, setTokenName] = useState();
 
-  const handelColor =()=>{
-    setcolor(true)
-    setbackcolor(flase)
-  }
-  const handelBackColorman =()=>{
-    setcolor(false)
-    setbackcolor(true)
-  }
-  const handelBackColorwoman =()=>{
-    setcolor(false)
-    setbackcolor(false)
-  }
-  const handleUsernameChange = (text) => {
-    setUsername(text);
-  };
-
-  // const handleEmailChange = (text) => {
-  //   setEmail(text);
-  // };
 
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
 
-  const handleCreateAccount = () => {
-    // Handle create account logic here
-  };
+
 
   const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
   const {SignInData} = useSelector(state => state.SignInRedux)
-
-  async function setToken(token,username) {
+console.log(SignInData,"77777777777777777");
+  async function setToken(token,username,avatar) {
     try {
       // ضبط قيمة الـ "Token" في Local Storage
       await AsyncStorage.setItem('Token', token);
       await AsyncStorage.setItem('username', username);
+      await AsyncStorage.setItem('avatar', avatar);
+
 
       console.log('تم ضبط قيمة الـ "TokenN" بنجاح:', token);
-      console.log('تم ضبط قيمة الـ "dataaaaa" بنجاح:', username);
+      console.log('تم ضبط قيمة الـ "dataaaaa" بنجاح:', avatar);
 
     } catch (error) {
       console.log('ooooooooo', error);
@@ -73,8 +54,10 @@ const Login = () => {
     if(SignInData){
       let token = SignInData?.Token
       let username = SignInData?.username
+      let avatar = SignInData?.photo
 
-      setToken(token,username);
+
+      setToken(token,username,avatar);
     }
   },[SignInData])
   
@@ -135,10 +118,6 @@ if(isValid ){
 
 
 
-//   const handlePasswordChange = (text) => {
-//     setPassword(text);
-//     setIsValidPassword(true); // Reset password validation state on each change
-//   };
 
   const handlePasswordSubmit = () => {
     // Password validation rules
@@ -175,11 +154,39 @@ SubmitSignIn(data)
 };
 
 useEffect(()=>{
-    if (SignInData) {
-        // Navigate to a specific page
-        navigation.navigate('MyTabs');
-      } 
+  async function printToken() {
+    try {
+      // قراءة قيمة الـ "Token" من Local Storage
+      const token = await AsyncStorage.getItem('Token');
+
+
+
+      if (token) setTokenName(token);
+      if (!token) setTokenName();
+
+     
+
+    } catch (error) {
+      console.log('حدث خطأ في قراءة البيانات:', error);
+    }
+  }
+
+
+  printToken();
+
+   
 },[SignInData])
+useEffect(()=>{
+  const token =  AsyncStorage.getItem('Token');
+  // if(token === null)
+  // setTokenName(null)
+
+
+if(TokenName)
+    navigation.navigate('Home');
+  
+},[TokenName])
+
   return (
   
    

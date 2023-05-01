@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart'; // Import package from node modules
 import {nativemodules} from 'react-native';
 import TopMenu from '../component/TopMenu';
+import { useDispatch } from 'react-redux';
+import { SignInDataInfo } from '../server/Redux/Auth/SignIn-Redux';
 
 const Profile = () => {
 
@@ -17,12 +19,15 @@ const Profile = () => {
     const navigation = useNavigation();
     const [token,settoken]=useState("")
     const [username,setusername]=useState("")
-  
+    const [Photo, setPhoto] = useState(false);
+
     async function printToken() {
       try {
         // قراءة قيمة الـ "Token" من Local Storage
         const token = await AsyncStorage.getItem('Token');
         const username = await AsyncStorage.getItem('username');
+        const avatar = await AsyncStorage.getItem('avatar');
+
   
         if(token)
         settoken(token)
@@ -30,6 +35,8 @@ const Profile = () => {
         if(username)
         setusername(username)
   
+        if(avatar)
+        setPhoto(avatar)
       } catch (error) {
         console.log('حدث خطأ في قراءة البيانات:', error);
       }
@@ -40,13 +47,17 @@ const Profile = () => {
   
     // استدعاء الدالة لطباعة قيمة الـ "Token"
     printToken();
+    const dispatch = useDispatch();
 
     const handelExit = async()=>{
       AsyncStorage.removeItem('Token');
-      
       const token = await AsyncStorage.getItem('Token');
-      RNRestart.restart();
-      // navigation.navigate('Wlc')
+      dispatch(SignInDataInfo());
+
+console.log(token,".......................");
+      // const token = await AsyncStorage.getItem('Token');
+      // RNRestart.restart();
+      navigation.navigate('wlc')
 
     }
   return (
@@ -55,7 +66,17 @@ const Profile = () => {
 
         <View style={styles.body}>
             <View style={styles.avatar}>
-            <AntDesign  name="user" size={80} color="white" />
+              {
+                Photo ? ( <Image 
+                  source={{ uri: `http://104.248.26.82/api/public/${Photo}` }}
+                  style={[styles.image,{marginHorizontal:15  }]}
+               />):( <Image 
+                  source={require('../../assets/images/profile-green.png')}
+                  style={[styles.image,{marginHorizontal:15  }]}
+               />)
+              }
+           
+            {/* <AntDesign  name="user" size={80} color="white" /> */}
             <View style={{position:"absolute",bottom:0,right:0}}>
             <AntDesign   name="camerao" size={30} color="white" />
 
@@ -124,7 +145,9 @@ const styles = StyleSheet.create({
     image:{
       height:35,
       width:40,
-      color:"white"
+      color:"white",
+      borderRadius:50
+
   },
     border:{
         width:"100%",
@@ -181,6 +204,11 @@ marginVertical:5
       justifyContent: 'space-around',
       marginTop: 20,
     },
+    image:{
+      height:100,
+      width:100,
+      color:"white"
+  },
   });
 
 export default Profile

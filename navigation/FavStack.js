@@ -29,6 +29,11 @@ import Stores from '../src/screen/Stores';
 import CardInfoStores from '../src/component/CardInfoStores';
 import AboutStores from '../src/screen/AboutStores';
 import MySubscriptions from '../src/screen/MySubscriptions';
+import Wlc from '../src/screen/Wlc';
+import ForgetPass from '../src/screen/ForgetPass';
+import Verificationcode from '../src/screen/Verificationcode';
+import NewPass from '../src/screen/NewPass';
+import Login from '../src/screen/Login';
 
 
 const Stack = createStackNavigator();
@@ -73,9 +78,22 @@ function FavStack() {
         <Stack.Screen name="ScheduledExercises" component={ScheduledExercises}  />
         <Stack.Screen name="Todaydrills" component={Todaydrills}  />
 
+        <Stack.Screen name="wlc" component={Wlc} />
         
-        
+        <Stack.Screen
+              name="NewAccountScreen"
+              component={NewAccountScreen}
+            />
+            <Stack.Screen name="ForgetPass" component={ForgetPass} />
 
+            <Stack.Screen
+              name="Verificationcode"
+              component={Verificationcode}
+            />
+
+            <Stack.Screen name="NewPass" component={NewPass} />
+
+            <Stack.Screen name="Login" component={Login} />
 
 
 

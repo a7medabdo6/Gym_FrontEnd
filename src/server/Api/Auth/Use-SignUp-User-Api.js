@@ -3,15 +3,26 @@ import BaseUrl from '../../BaseUrl'
 
 
 export const UseSignUpApi  = async data => {
-  console.log(data);
   // const config = {
   //     headers: {
           
   //         token: localStorage.getItem("token")
   //     }
   // }
-  return await BaseUrl.post(
-    'users/signup',data );
+  try {
+    const res = await BaseUrl.post(
+      'users/signup',data ,{
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(res,"res");
+
+      return res
+  } catch (error) {
+    console.log(error,"error")
+  }
+ 
 };
 
 

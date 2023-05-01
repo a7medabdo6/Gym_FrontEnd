@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Image,Text ,TouchableOpacity,Alert} from 'react-native';
+import { View, TextInput, StyleSheet, Image,Text ,TouchableOpacity,Alert, Button} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../Ulits/COLORS';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { SignUpApi } from '../server/Hook/Auth/signUp-Hook';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
+import DocumentPicker from 'react-native-document-picker';
 
 const NewAccountScreen = () => {
 
@@ -23,7 +24,28 @@ console.log(SignUpData);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [color, setcolor] = useState(false);
   const [backcolor, setbackcolor] = useState(false);
+  const [photo,setphoto]= useState();
 
+
+  const selectDoc = async () => {
+    try {
+      // const doc = await DocumentPicker.pick({
+      //   type: [DocumentPicker.types.pdf],
+      //   allowMultiSelection: true
+      // });
+      // const doc = await DocumentPicker.pickSingle()
+      const doc = await DocumentPicker.pickMultiple({
+        type: [DocumentPicker.types.images]
+      })
+      setphoto(doc)
+
+    } catch(err) {
+      if(DocumentPicker.isCancel(err)) 
+        console.log("User cancelled the upload", err);
+      else 
+        console.log(err)
+    }
+  }
   const handleToggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -95,14 +117,25 @@ console.log(SignUpData);
       // Password is valid, submit the form or perform the desired action
     }
     if(isValid ){
-      let data = {
-        "email": email,
-      "password": password,
-        "role": "superadmin",
-     "username": username
-      }
-    
-      SubmitSignUp(data)
+      const formData = new FormData();
+      formData.append('photo', {
+        uri: photo[0].uri,
+        type: photo[0].type,
+        name: photo[0].name,
+      });
+      formData.append("email",email)
+      formData.append("password",password)
+      formData.append("username",username)
+      formData.append("role","admin")
+
+    //   let data = {
+    //     "email": email,
+    //   "password": password,
+    //     "role": "superadmin",
+    //  "username": username
+    //   }
+    console.log(photo)
+      SubmitSignUp(formData)
   }
   };
 
@@ -253,6 +286,9 @@ useEffect(()=>{
             Password must be between 8 and 20 characters and can only contain letters, numbers, and special characters: !@#$%^&*
           </Text>
         )}
+     </View>
+     <View>
+      <Button title='select photo' onPress={selectDoc} />
      </View>
      <Text style={{color:"#7B9D3C",fontFamily:"bold",textAlign:"center",marginVertical:10}}>or</Text>
   

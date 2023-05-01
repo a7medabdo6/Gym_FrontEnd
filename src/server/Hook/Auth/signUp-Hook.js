@@ -21,18 +21,13 @@ export const SignUpApi = data =>{
           };
           console.log(result,"result");
            dispatch(SignUpDataInfo(result.data));
-          // localStorage.setItem('user', JSON.stringify(result.data));
-          // localStorage.setItem('token', JSON.stringify(result.data.token));
-          //  window.location.replace('/');
+        
           navigation.navigate('Login');
 
-        //   setTimeout(()=>{ router.history.push('/CarePlan');
-        // },2000)
+     
   
   
-//    setTimeout(() => {
-//       router.history.push('/');
-//    }, 2000);
+
     
         },
         onError: err => {
@@ -43,7 +38,7 @@ export const SignUpApi = data =>{
           };
           // console.log(result,"eroorrrrrrrr");
 
-          console.log(err);
+          console.log(err,"err");
           dispatch(errors(result?.data));
 
           //   dispatch(errorAtLogin(err.response.data.detail));

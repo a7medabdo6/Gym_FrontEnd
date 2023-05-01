@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     container: {
          position:"relative",
          borderRadius:20,
-         marginBottom:0
+         marginBottom:"0.8%",
+         marginTop:"0.8%"
   
       
     },

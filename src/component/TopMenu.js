@@ -6,19 +6,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const TopMenu = ({navigation,noti,name,ava}) => {
     const [token,settoken]=useState("")
     const [username,setusername]=useState("")
-  
+    const [Photo, setPhoto] = useState(false);
+
     async function printToken() {
       try {
         // قراءة قيمة الـ "Token" من Local Storage
         const token = await AsyncStorage.getItem('Token');
         const username = await AsyncStorage.getItem('username');
-  
+        const avatar = await AsyncStorage.getItem('avatar');
+
         if(token)
         settoken(token)
   
         if(username)
         setusername(username)
-  
+        if(avatar)
+        setPhoto(avatar)
       } catch (error) {
         console.log('حدث خطأ في قراءة البيانات:', error);
       }
@@ -41,10 +44,16 @@ const TopMenu = ({navigation,noti,name,ava}) => {
       }
   
   {
-    ava === true ? (<Image 
-      source={require('../../assets/images/profile-green.png')}
-      style={[styles.image,{marginHorizontal:15  }]}
-   /> ):null
+    ava === true ? (    
+      Photo ? ( <Image 
+        source={{ uri: `http://104.248.26.82/api/public/${Photo}` }}
+        style={[styles.image,{marginHorizontal:15  }]}
+     />):( <Image 
+        source={require('../../assets/images/profile-green.png')}
+        style={[styles.image,{marginHorizontal:15  }]}
+     />)
+    
+  ):null
   }
        
     {

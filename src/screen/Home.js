@@ -19,7 +19,7 @@ const Home = ({ navigation }) => {
   const {GetMenuData} = useSelector(state => state.GetMenuRedux)
   // console.log(GetMenuData?.data?.categoreis[1]?.cover,"888888888888888888888888888888888888888888");
   return (
-    <SafeAreaView style={{flex:1,marginBottom:"20%"}}> 
+    <SafeAreaView style={{flex:1,marginBottom:"5%"}}> 
  <ScrollView style={{flex:1,marginTop:25}}>
   <TopMenu navigation={navigation} noti={true} ava={true} name={true}/>
         {/* <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
@@ -55,7 +55,7 @@ const Home = ({ navigation }) => {
                   }
             
                   )}>
-                <Card titletext={item?.title} text={item?.desc} imageSource={"http://167.71.56.133/api/public/" + item?.cover} id={item?.id}/>
+                <Card titletext={item?.title} text={item?.desc} imageSource={"http://104.248.26.82/api/public/" + item?.cover} id={item?.id}/>
                 </TouchableOpacity>
               )
             })
