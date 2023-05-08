@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
             GetMenuData?.data?.categoreis?.map((item,index)=>{
               return(
                 <TouchableOpacity    onPress={() => navigation.navigate(
-                  item?.title === "النوادي الرياضيه" ? 'Gym':item?.title === "عيادات التغذية" ? 'Clinic':item?.title === "عيادات العلاج الطبيعي" ? 'NormalClinic':item?.title === "مطاعم الاكل الصحي" ? 'Clinic':   item?.title === "المتاجر" ? 'Stores':null,{
+                  item?.title === "النوادي الرياضيه" ? 'Gym':item?.title === "عيادات التغذيه" ? 'Clinic':item?.title === "عيادات العلاج الطبيعي" ? 'NormalClinic':item?.title === "مطاعم الاكل الصحي" ? 'Resturant':   item?.title === "المتاجر" ? 'Stores':null,{
                     itemId: item?.id
 
                   }
@@ -61,21 +61,7 @@ const Home = ({ navigation }) => {
             })
           }
      
-        {/* <TouchableOpacity     onPress={() => navigation.navigate('Clinic')}>
-          <Card titletext="عيادات التغذيه" text="ستجد افضل عيادات التغذيه القريبه اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourceFood}/>
-          </TouchableOpacity>
-
-          <TouchableOpacity     onPress={() => navigation.navigate('NormalClinic')}>
-          <Card titletext="عيادات العلاج الطبيعي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourceclinic}/>
-          </TouchableOpacity>
-
-          <TouchableOpacity     onPress={() => navigation.navigate('NormalClinic')}>
-          <Card titletext="  مطاعم الاكل الصحي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourceres}/>
-          </TouchableOpacity>
-
-          <TouchableOpacity     onPress={() => navigation.navigate('Stores')}>
-          <Card titletext="   المتاجر " text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={imgsourcestores}/>
-          </TouchableOpacity> */}
+       
         </View>
     </ScrollView>
     </SafeAreaView>

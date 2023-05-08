@@ -34,6 +34,9 @@ import ForgetPass from '../src/screen/ForgetPass';
 import Verificationcode from '../src/screen/Verificationcode';
 import NewPass from '../src/screen/NewPass';
 import Login from '../src/screen/Login';
+import CardInfoResturant from '../src/component/CardInfoResturant';
+import BodyAboutResturant from '../src/component/BodyAboutResturant';
+import Resturant from '../src/screen/Resturant';
 
 
 const Stack = createStackNavigator();
@@ -52,6 +55,7 @@ function FavStack() {
         <Stack.Screen name="Clinic" component={clinic}  />
         <Stack.Screen name="NormalClinic" component={NormalClinic}  />
         <Stack.Screen name="Stores" component={Stores}  />
+        <Stack.Screen name="Resturant" component={Resturant}  />
 
 
         
@@ -59,12 +63,14 @@ function FavStack() {
         <Stack.Screen name="CardInfoNoramlClinic" component={CardInfoNoramlClinic}  />
         <Stack.Screen name="CardInfoGym" component={CardInfoGym}  />
         <Stack.Screen name="CardInfoStores" component={CardInfoStores}  />
+        <Stack.Screen name="CardInfoResturant" component={CardInfoResturant}  />
 
         
         <Stack.Screen name="AboutGYM" component={AboutGYM}  />
         <Stack.Screen name="AboutClinic" component={AboutClinic}  />
         <Stack.Screen name="AboutNormalClinic" component={AboutNormalClinic}  />
         <Stack.Screen name="AboutStores" component={AboutStores}  />
+        <Stack.Screen name="BodyAboutResturant" component={BodyAboutResturant}  />
 
         
         <Stack.Screen name="ContactUs" component={ContactUs}  />
@@ -72,7 +78,8 @@ function FavStack() {
 
         
 
-        
+        {/* <Stack.Screen name="test" component={test}  /> */}
+
         
 
         <Stack.Screen name="ScheduledExercises" component={ScheduledExercises}  />

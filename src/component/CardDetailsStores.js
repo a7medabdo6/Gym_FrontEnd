@@ -50,26 +50,17 @@ const CardDetailsStores = ({itemId}) => {
 
 
         <ScrollView>
-        <Card titletext="   المتاجر " text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[5]?.cover}/>
+        <Card titletext="   المتاجر " text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://104.248.26.82/api/public/" + GetMenuData?.data?.categoreis[4]?.cover}/>
         {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
-              <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores')}>
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores',{item})}>
         <MiniCard title={item?.name} text="       تصفح الالف المنتجات الخاصه  بك " adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )
           })
         }
-        {/* <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores')}>
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-        </TouchableOpacity>
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
-        <MiniCard title=" متجر x  " text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/> */}
+       
 
         </ScrollView>
         </View>

@@ -69,7 +69,7 @@ console.log(token,".......................");
               {
                 Photo ? ( <Image 
                   source={{ uri: `http://104.248.26.82/api/public/${Photo}` }}
-                  style={[styles.image,{marginHorizontal:15  }]}
+                  style={{marginHorizontal:15,width:100,height:100,borderRadius:50  }}
                />):( <Image 
                   source={require('../../assets/images/profile-green.png')}
                   style={[styles.image,{marginHorizontal:15  }]}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
       height:35,
       width:40,
       color:"white",
-      borderRadius:50
+      borderRadius: 5,
 
   },
     border:{

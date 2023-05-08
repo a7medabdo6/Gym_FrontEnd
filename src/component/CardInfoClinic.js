@@ -8,9 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../Ulits/COLORS';
 import CardOfer from './CardOfer';
 
-const CardInfoClinic = () => {
+const CardInfoClinic = ({route}) => {
     const navigation = useNavigation();
-
+    const { item } = route.params;
   return (
     <View style={{flex:1,backgroundColor:"white",marginBottom:"20%"}}>
     <View style={{margin:20}}>
@@ -22,9 +22,9 @@ const CardInfoClinic = () => {
     <View style={styles.boxtop}>
     <ImageBackground source={require('../../assets/images/gym-4k.jpeg')} style={styles.backgroundImage}>
         <View style={styles.box1}>
-        <Text style={styles.title}> عياده X للتغذيه </Text>
+        <Text style={styles.title}> {item?.name}   </Text>
         <View style={styles.info}>
-          <TouchableOpacity onPress={() => navigation.navigate('AboutClinic')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AboutClinic',{item})}>
           <View style={styles.infoX} >
                 
                 <Text style={styles.text}>عن العياده</Text>

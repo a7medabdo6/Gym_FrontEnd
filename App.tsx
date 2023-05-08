@@ -32,8 +32,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import NewAccountScreen from './src/screen/NewAccountScreen';
 import Home from './src/screen/Home';
 import Info from './src/screen/Info';
-import BackgroundBox from './test';
-import MyComponent from './test';
+
 import Gym from './src/screen/Gym';
 import CardInfo from './src/component/CardInfoGym';
 import MyTabs from './navigation/Tabs';
@@ -52,7 +51,8 @@ import Verificationcode from './src/screen/Verificationcode';
 import NewPass from './src/screen/NewPass';
 import FavStack from './navigation/FavStack';
 import Setting from './src/screen/Setting';
-
+import Animated from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 const queryClient = new QueryClient();
 
 type SectionProps = PropsWithChildren<{
@@ -63,6 +63,18 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function App() {
+
+  const {t,i18n}=useTranslation()
+  // const [progress, setProgress] = useState(new Animated.Value(0));
+  // const scale = Animated.interpolate(progress, {
+  //   inputRange: [0, 1],
+  //   outputRange: [1, 0.8],
+  // });
+  // const borderRadius = Animated.interpolate(progress, {
+  //   inputRange: [0, 1],
+  //   outputRange: [0, 10],
+  // });
+  // const animatedStyle = {borderRadius, transform: [{scale}]};
   const StackTabs = () => {
     return (
       <Stack.Navigator
@@ -72,7 +84,7 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        {token ? (
+                    {token ? (
           <Stack.Screen name="FavStack" component={FavStack} />
         ) : (
           // <Stack.Screen name="MyTabs" component={MyTabs} />
@@ -100,6 +112,9 @@ function App() {
             <Stack.Screen name="Login" component={Login} />
           </>
         )}
+
+
+       
       </Stack.Navigator>
     );
   };

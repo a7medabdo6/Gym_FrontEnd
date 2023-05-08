@@ -5,7 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import BodyAboutGYM from '../component/BodyAboutGYM';
 import BodyAboutStores from '../component/BodyAboutStores';
 
-const AboutStores = () => {
+const AboutStores = ({route}) => {
+  const { item } = route.params;
   return (
     <ScrollView style={styles.container}>
         <View style={styles.header}>
@@ -21,7 +22,7 @@ const AboutStores = () => {
         </View>
 
         <View style={styles.body}>
-            <BodyAboutStores/>
+            <BodyAboutStores item={item}/>
         </View>
 
     </ScrollView>

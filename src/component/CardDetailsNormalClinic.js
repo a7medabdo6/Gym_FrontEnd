@@ -52,11 +52,11 @@ const CardDetailsNormalClinic = ({itemId}) => {
 
 
     <ScrollView>
-    <Card titletext="عيادات العلاج الطبيعي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[2]?.cover}/>
+    <Card titletext="عيادات العلاج الطبيعي" text="ستجد افضل عيادات العلاج الطبيعي اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://104.248.26.82/api/public/" + GetMenuData?.data?.categoreis[2]?.cover}/>
     {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
-              <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic')}>
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic',{item})}>
         <MiniCard title={item?.name} text="عياده متخصصه    بالعلاج الطبيعي وعلاج الالم المفاصل " adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )

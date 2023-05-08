@@ -13,7 +13,7 @@ import { GetBusinesApi } from '../server/Hook/Menu/Get-Busines-Hook';
 import { useSelector } from 'react-redux';
 import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
 
-const CardDetailsGym = ({itemId}) => {
+const CradDetailsResturant = ({itemId}) => {
 
   const {data:menu} =  GetMenuApi()
   const {GetMenuData} = useSelector(state => state.GetMenuRedux)
@@ -98,8 +98,8 @@ const CardDetailsGym = ({itemId}) => {
         {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
-              <TouchableOpacity onPress={() => navigation.navigate('CardInfoGym',{item})}>
-        <MiniCard title={item?.name} text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoResturant',{item})}>
+        <MiniCard title={item?.name} text="مطعم  متخصص فيالاكلات الصحيه وافضلها ب اسعار تناسب الجميع" adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )
           })
@@ -171,4 +171,5 @@ const styles = StyleSheet.create({
 
   });
 
-export default  CardDetailsGym
+
+export default CradDetailsResturant

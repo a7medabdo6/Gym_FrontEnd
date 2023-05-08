@@ -1,11 +1,8 @@
-import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native'
+import { View, Text,Image,StyleSheet } from 'react-native'
 import React from 'react'
 import { COLORS } from '../Ulits/COLORS';
 import Button from "../Ulits/Button"
-import { useNavigation } from '@react-navigation/native';
-const BodyAboutNormalClinic = ({item}) => {
-    const navigation = useNavigation();
-
+const BodyAboutResturant = ({item}) => {
   return (
     <View style={styles.container}>
       <View>
@@ -14,16 +11,11 @@ const BodyAboutNormalClinic = ({item}) => {
                style={styles.image}
             />
             </View>
-            <Text style={styles.text}> {item?.name}</Text>
-            <Text style={styles.title}>تاسست عياده x في عام 1992 علي يد اكبر الاطباء خبره وهي مختصه فالصحه والتغذيه السليمه</Text>
-            <Button text="منتجاتنا" bckColor={COLORS.mainColor}/>
-            <TouchableOpacity     onPress={() => navigation.navigate('ContactUs')}>
-            <Button text="تواصل معنا" bckColor={COLORS.mainColor}/>
-            </TouchableOpacity>
-            
-            <TouchableOpacity     onPress={() => navigation.navigate('Todaydrills')}>
-            <Button text="التدريبات اليوميه" bckColor={COLORS.mainColor}/>
-            </TouchableOpacity>
+            <Text style={styles.text}> {item?.name} </Text>
+            <Text style={styles.title}>تاسس مطعم عام 1990 علي يد افضل المدربين  العرب والعالميين ومنهم المدرب يايسن جادو الحاصل على المركز الاول على العالم </Text>
+            <Button text="   تواصل معنا" bckColor={COLORS.mainColor}/>
+
+            <Button text="  تفاصيل الاشتراك" bckColor={COLORS.mainColor}/>
 
             <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
 
@@ -85,4 +77,4 @@ const styles = StyleSheet.create({
 
     }
   });
-export default BodyAboutNormalClinic
+export default BodyAboutResturant

@@ -53,11 +53,11 @@ const CardDetailsClinic = ({itemId}) => {
     <ScrollView>
 
       
-    <Card titletext="عيادات التغذيه" text="ستجد افضل عيادات التغذيه القريبه اليك مع افضل الاسعار والخصومات والعروض" imageSource={"http://167.71.56.133/api/public/" + GetMenuData?.data?.categoreis[1]?.cover}/>
+    <Card titletext="  عيادات التغذيه " text=" ستجد افضل عيادات التغذيه القريبه اليك مع افضل العروض والخصومات" imageSource={"http://104.248.26.82/api/public/" + GetMenuData?.data?.categoreis[1]?.cover}/>
     {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
-              <TouchableOpacity onPress={() => navigation.navigate('CardInfoClinic')}>
+              <TouchableOpacity onPress={() => navigation.navigate('CardInfoClinic',{item})}>
         <MiniCard title={item?.name} text="عياده متخصصه بالتغذيه الصحيه والمناسبه للاشخاص " adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )

@@ -2,10 +2,11 @@ import { View, Text ,StyleSheet,Image,ScrollView} from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import BodyAboutClinic from '../component/BodyAboutClinic';
-import BodyAboutNormalClinic from '../component/BodyAboutNormalClinic';
+import BodyAboutGYM from '../component/BodyAboutGYM';
+import BodyAboutStores from '../component/BodyAboutStores';
+import BodyAboutResturant from '../component/BodyAboutResturant';
 
-const AboutNormalClinic = ({route}) => {
+const AboutResturant = ({route}) => {
   const { item } = route.params;
   return (
     <ScrollView style={styles.container}>
@@ -22,7 +23,7 @@ const AboutNormalClinic = ({route}) => {
         </View>
 
         <View style={styles.body}>
-            <BodyAboutNormalClinic item={item}/>
+            <BodyAboutResturant item={item}/>
         </View>
 
     </ScrollView>
@@ -36,13 +37,6 @@ const styles = StyleSheet.create({
      marginBottom:"20%"
   
     },
-    image:{
-      height:35,
-      width:40,
-      color:"white"
-  },
-
-   
     header:{
         display:"flex",
         justifyContent:"space-between",
@@ -56,7 +50,13 @@ const styles = StyleSheet.create({
       alignItems:"center"
         
     },
-  
+    image:{
+      height:35,
+      width:40,
+      color:"white"
+  },
+
+   
     text:{
       fontSize:12,
       fontFamily:"Cairo-Bold",
@@ -70,4 +70,5 @@ const styles = StyleSheet.create({
   });
 
 
-export default AboutNormalClinic
+
+export default AboutResturant

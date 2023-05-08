@@ -4,7 +4,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BodyAboutGYM from '../component/BodyAboutGYM';
 
-const AboutGYM = () => {
+const AboutGYM = ({route}) => {
+  const { item } = route.params;
   return (
     <ScrollView style={styles.container}>
         <View style={styles.header}>
@@ -19,7 +20,7 @@ const AboutGYM = () => {
         </View>
 
         <View style={styles.body}>
-            <BodyAboutGYM/>
+            <BodyAboutGYM item={item}/>
         </View>
 
     </ScrollView>

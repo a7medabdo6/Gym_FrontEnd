@@ -2,7 +2,7 @@ import { View, Text,Image,StyleSheet } from 'react-native'
 import React from 'react'
 import { COLORS } from '../Ulits/COLORS';
 import Button from "../Ulits/Button"
-const BodyAboutGYM = () => {
+const BodyAboutGYM = ({item}) => {
   return (
     <View style={styles.container}>
       <View>
@@ -11,7 +11,7 @@ const BodyAboutGYM = () => {
                style={styles.image}
             />
             </View>
-            <Text style={styles.text}>نادي X جيم</Text>
+            <Text style={styles.text}>  {item?.name}</Text>
             <Text style={styles.title}>تاسس النادي عام 1990 علي يد افضل المدربين  العرب والعالميين ومنهم المدرب يايسن جادو الحاصل على المركز الاول على العالم </Text>
             <Button text="   تواصل معنا" bckColor={COLORS.mainColor}/>
 

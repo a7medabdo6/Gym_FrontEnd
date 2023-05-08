@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Image,Text ,TouchableOpacity,Alert, Button} from 'react-native';
+import { View, TextInput, StyleSheet, Image,Text ,TouchableOpacity,Alert, Button,ActivityIndicator, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../Ulits/COLORS';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ const NewAccountScreen = () => {
 
   const navigation = useNavigation();
 
-  const {isLoading,mutate:SubmitSignUp,isError,error,data} =  SignUpApi()
+  const {mutate:SubmitSignUp,isError,error,data} =  SignUpApi()
   const {SignUpData} = useSelector(state => state.SignUpRedux)
 console.log(SignUpData);
   const [username, setUsername] = useState('');
@@ -25,6 +25,8 @@ console.log(SignUpData);
   const [color, setcolor] = useState(false);
   const [backcolor, setbackcolor] = useState(false);
   const [photo,setphoto]= useState();
+  const [isLoading,setisLoading]= useState(null);
+
 
 
   const selectDoc = async () => {
@@ -136,6 +138,14 @@ console.log(SignUpData);
     //   }
     console.log(photo)
       SubmitSignUp(formData)
+      if (SignUpData) {
+        setisLoading(true)
+    
+          // Navigate to a specific page
+          navigation.navigate('Login');
+        } else{
+          setisLoading(false)
+        }
   }
   };
 
@@ -190,25 +200,27 @@ const handleSubmit = async event => {
 
 useEffect(()=>{
   if (SignUpData) {
+    setisLoading(true)
+
       // Navigate to a specific page
       navigation.navigate('Login');
     } 
-},[SignUpData])
+},[SignUpData,isLoading])
   return (
   
-    <View style={styles.container}>
-
-    <View style={styles.logo}>
+    <ScrollView style={{flex:1}} >
+      <View style={styles.container}>
+      <View style={styles.logo}>
     <Image 
                  source={require('../../assets/images/logo_without.png')}
                  style={styles.dumbel}
               />  
     </View>
-    <Text style={{color:"black",fontWeight:"500",fontSize:20,marginBottom:30}}> Lets Start your fitness journey!</Text>
+    <Text style={{color:"black",fontWeight:"500",fontSize:20,marginBottom:15}}> Lets Start your fitness journey!</Text>
 
     
 
-  <Text style={{color:"black",fontWeight:"900",fontSize:25,marginBottom:30}}>Sign Up</Text>
+  <Text style={{color:"black",fontWeight:"900",fontSize:25,marginBottom:15}}>Sign Up</Text>
 
   <View style={styles.inputContainer}>
           <Entypo name="user" size={24} color="grey" style={styles.icon} />
@@ -288,9 +300,11 @@ useEffect(()=>{
         )}
      </View>
      <View>
-      <Button title='select photo' onPress={selectDoc} />
+    
+
+      <Button title='select photo your profile' onPress={selectDoc} />
      </View>
-     <Text style={{color:"#7B9D3C",fontFamily:"bold",textAlign:"center",marginVertical:10}}>or</Text>
+     <Text style={{color:"#7B9D3C",fontFamily:"bold",textAlign:"center",marginVertical:5}}>or</Text>
   
       <View         style={styles.social}
   >
@@ -310,12 +324,22 @@ useEffect(()=>{
        
        <TouchableOpacity onPress={handleEmailSubmit}  >
         <View style={styles.buttonContainer} >
-        <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>Sign in</Text>
+        <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}> 
+        {
+          isLoading === false ?(
+            <ActivityIndicator size="small" color="#0000ff" />
+          ):"Sign up"
+        } 
+
+</Text>
   
         </View>
-         </TouchableOpacity> 
+         </TouchableOpacity>
+      </View>
+
+   
         
-     </View>
+     </ScrollView>
     
   );
 };
@@ -326,6 +350,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:"center",
     paddingHorizontal: 20,
+    marginTop:20
   },
   inputContainer: {
     flexDirection: 'row',
@@ -345,7 +370,7 @@ borderRadius:70,
 width: 120,
 height: 120,
 opacity:0.9,
-marginBottom:"10%"
+marginBottom:"5%"
 },
   input: {
     flex: 1,

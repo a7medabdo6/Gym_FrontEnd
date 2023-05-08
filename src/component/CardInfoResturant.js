@@ -7,7 +7,7 @@ import MiniCard from './MiniCard';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../Ulits/COLORS';
 import CardOfer from './CardOfer';
-const CardInfoStores = ({navigation,name,route}) => {
+const CardInfoResturant = ({navigation,name,route}) => {
   const { item } = route.params;
   return (
     
@@ -22,12 +22,12 @@ const CardInfoStores = ({navigation,name,route}) => {
         <View style={styles.boxtop}>
         <ImageBackground source={require('../../assets/images/gym-4k.jpeg')} style={styles.backgroundImage}>
             <View style={styles.box1}>
-            <Text style={styles.title}>  {item?.name} </Text>
+            <Text style={styles.title}> {item?.name}  </Text>
             <View style={styles.info}>
-              <TouchableOpacity onPress={() => navigation.navigate('AboutStores',{item})}>
+              <TouchableOpacity onPress={() => navigation.navigate('AboutGYM',{item})}>
               <View style={styles.infoX} >
                     
-                    <Text style={styles.text}>عن المتجر</Text>
+                    <Text style={styles.text}>عن المطعم</Text>
                     <AntDesign  name="infocirlceo" size={20} color="white" />
 
                 </View>
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
       width:40,
       color:"white"
   },
-   
     box1:{
         position:"relative",
         justifyContent:"space-between",
@@ -163,4 +162,5 @@ infoX:{
 
 
   });
-export default CardInfoStores
+
+export default CardInfoResturant

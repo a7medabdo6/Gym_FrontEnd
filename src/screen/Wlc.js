@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const Wlc = () => {
     const navigation = useNavigation();
+    const {t,i18n}=useTranslation()
 
   return (
     <View style={styles.container}>
@@ -14,7 +16,7 @@ const Wlc = () => {
             />  
 <View>
 <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('NewAccountScreen')}>
-      <Text style={styles.buttonText}>Create Account</Text>
+      <Text style={styles.buttonText}>{t("Create Account")}</Text>
     </TouchableOpacity>
     <View style={styles.rowcontainer}>
     <Text style={styles.loginText}>Already have an account? </Text>

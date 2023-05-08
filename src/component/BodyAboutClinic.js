@@ -3,7 +3,7 @@ import React from 'react'
 import { COLORS } from '../Ulits/COLORS';
 import Button from "../Ulits/Button"
 import { useNavigation } from '@react-navigation/native';
-const BodyAboutClinic = () => {
+const BodyAboutClinic = ({item}) => {
     const navigation = useNavigation();
 
   return (
@@ -15,7 +15,7 @@ const BodyAboutClinic = () => {
     />
   </View>
 
-  <Text style={styles.text}>عياده X للتغذيه</Text>
+  <Text style={styles.text}> {item?.name} </Text>
 
   <Text style={styles.title}>تأسست عياده X في عام 1992 على يد أكبر الأطباء خبرة وهي مختصة في الصحة والتغذية السليمة</Text>
   <Button text="منتجاتنا" bckColor="#808080"/>

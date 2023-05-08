@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Button,Text ,TouchableOpacity,Alert, Image} from 'react-native';
+import { View, TextInput, StyleSheet, Button,Text ,TouchableOpacity,Alert, Image,ActivityIndicator} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../Ulits/COLORS';
 import { SignInApi } from '../server/Hook/Auth/signIn-Hook';
@@ -20,6 +20,7 @@ const Login = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [color, setcolor] = useState(false);
+  const [isLoading,setisLoading]= useState(null);
 
   const [TokenName, setTokenName] = useState();
 
@@ -30,7 +31,7 @@ const Login = () => {
 
 
 
-  const {isLoading,mutate:SubmitSignIn,isError,error,data} =  SignInApi()
+  const {mutate:SubmitSignIn,isError,error,data} =  SignInApi()
   const {SignInData} = useSelector(state => state.SignInRedux)
 console.log(SignInData,"77777777777777777");
   async function setToken(token,username,avatar) {
@@ -111,6 +112,15 @@ if(isValid ){
       }
     
     SubmitSignIn(data)
+
+    if (SignInData) {
+      setisLoading(true)
+  
+        // Navigate to a specific page
+        // navigation.navigate('Home');
+      } else{
+        setisLoading(false)
+      }
 }
     
   };
@@ -267,7 +277,13 @@ if(TokenName)
      
      <TouchableOpacity onPress={handleEmailSubmit}  >
       <View style={styles.buttonContainer} >
-      <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>Sign in</Text>
+      <Text style={{paddingHorizontal:70,paddingVertical:20,backgroundColor:"#7B9D3C",borderRadius:48,color:"white",fontFamily:"bold",textAlign:"center"}}>
+      {
+          isLoading === false ?(
+            <ActivityIndicator size="small" color="#0000ff" />
+          ):"Sign up"
+        } 
+      </Text>
 
       </View>
        </TouchableOpacity> 
