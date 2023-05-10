@@ -21,7 +21,7 @@ const CradDetailsResturant = ({itemId}) => {
 
   const {isLoading,isError,error,data:bus} =  GetBusinesApi(itemId)
   const {GetBusinesData} = useSelector(state => state.GetBusinesRedux)
-  // console.log(GetBusinesData?.data?.busines,"9999999999999999");
+  console.log(GetBusinesData?.data?.busines,"9999999999999999");
     const navigation = useNavigation();
     const countries = ["Egyptvvvvvvvvvvvvvvvvvvvvvvvvv", "Canada", "Australia", "Ireland"]
 
@@ -92,7 +92,7 @@ const CradDetailsResturant = ({itemId}) => {
 
 
         <ScrollView>
-        <Card titletext=" النوادي الرياضيه" text="ستجد افضل  النوادي الرياضيه القريبه اليك مع افضل   العروض الترويجيه" imageSource={"http://104.248.26.82/api/public/" + GetMenuData?.data?.categoreis[0]?.cover}/>
+        <Card titletext="  مطاعم الاكل الصحي" text="ستجد افضل  النوادي الرياضيه القريبه اليك مع افضل   العروض الترويجيه" imageSource={"http://104.248.26.82/api/public/" + GetMenuData?.data?.categoreis[0]?.cover}/>
 
 
         {

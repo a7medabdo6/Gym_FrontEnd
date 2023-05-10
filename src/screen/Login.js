@@ -26,7 +26,7 @@ const Login = () => {
 
 
   const handlePasswordChange = (text) => {
-    setPassword(text);
+    setPassword(text.toString());
   };
 
 
@@ -107,7 +107,7 @@ console.log(SignInData,"77777777777777777");
     }
 if(isValid ){
     let data = {
-        "email": email,
+        "email": email.toString(),
         "password": password
       }
     

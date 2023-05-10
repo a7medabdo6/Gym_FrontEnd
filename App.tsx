@@ -161,14 +161,29 @@ function App() {
   // استدعاء الدالة لطباعة قيمة الـ "Token"
   printToken();
   return (
-    <QueryClientProvider client={queryClient}>
+    <View style={{flex:1,backgroundColor:"red"}}>
+  <QueryClientProvider client={queryClient}>
       <Provider store={Store}>
         <View style={styles.page}>
           <NavigationContainer>
             {/* <MyTabs/> */}
 
             <Drawer.Navigator
+              screenOptions={
+                {
+                  drawerType:"slide",
+                  overlayColor:"transperant",
+                  sceneContainerStyle: { backgroundColor: 'red' },
+                  headerShown:false,
+                  swipeEdgeWidth:180
+
+
+                  
+                }
+
+              }
               initialRouteName="Home"
+            
               drawerContent={props => <CustomDrawer {...props} />}>
               <Drawer.Screen
                 name="Home"
@@ -190,6 +205,8 @@ function App() {
         </View>
       </Provider>
     </QueryClientProvider>
+    </View>
+  
   );
 }
 
@@ -215,6 +232,9 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
   },
+  scentstyle:{
+    backgroundColor:"red"
+  }
 });
 
 export default App;

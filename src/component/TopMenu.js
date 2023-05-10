@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const TopMenu = ({navigation,noti,name,ava}) => {
+const TopMenu = ({navigation,noti,name,ava,onPress}) => {
     const [token,settoken]=useState("")
     const [username,setusername]=useState("")
     const [Photo, setPhoto] = useState(false);
@@ -63,7 +63,7 @@ const TopMenu = ({navigation,noti,name,ava}) => {
     </View>
 
     <View >
-      <TouchableOpacity onPress={()=> navigation.openDrawer()}>
+      <TouchableOpacity onPress={onPress}>
       <Image 
        source={require('../../assets/images/menu-green.png')}
        style={styles.image}

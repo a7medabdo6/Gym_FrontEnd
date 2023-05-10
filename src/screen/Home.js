@@ -1,5 +1,5 @@
-import { View, Text,StyleSheet,ScrollView,TouchableOpacity,SafeAreaView ,Image} from 'react-native'
-import React from 'react'
+import { View, Text,StyleSheet,ScrollView,TouchableOpacity,SafeAreaView ,Image, Dimensions} from 'react-native'
+import React, { useCallback } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Card from '../component/Card';
@@ -11,17 +11,119 @@ import imgsourcestores from "../../assets/images/stores.jpg"
 import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
 import { useSelector } from 'react-redux';
 import TopMenu from '../component/TopMenu';
+import { useDrawerProgress } from '@react-navigation/drawer';
+import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-
+const THRESHOLD = SCREEN_WIDTH / 3;
 const Home = ({ navigation }) => {
+  const translateX = useSharedValue(0);
 
+  const drawerProgress = useDrawerProgress()
+
+  const panGestureEvent = useAnimatedGestureHandler({
+    onStart: (_, context) => {
+      context.x = translateX.value;
+    },
+    onActive: (event, context) => {
+      // I forgot to wrap the translationX with Math.max in the video :/
+      // It must be done in order to clamp the right axis scroll
+      translateX.value = Math.max(event.translationX + context.x, 0);
+    },
+    onEnd: () => {
+      if (translateX.value <= THRESHOLD) {
+        translateX.value = withTiming(0);
+      } else {
+        translateX.value = withTiming(SCREEN_WIDTH / 2);
+      }
+    },
+  });
+
+  const rStyle = useAnimatedStyle(() => {
+    const rotate = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 3],
+      Extrapolate.CLAMP
+    );
+
+    const borderRadius = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 15],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      borderRadius,
+      transform: [
+        { perspective: 100 },
+        {
+          translateX: translateX.value,
+        },
+        {
+          rotateY: `-${rotate}deg`,
+        },
+      ],
+    };
+  }, []);
+  const onPress = useCallback(() => {
+    if (translateX.value > 0) {
+      translateX.value = withTiming(0);
+      
+    } else {
+      translateX.value = withTiming(SCREEN_WIDTH / 2);
+      navigation.openDrawer()
+    }
+  }, []);
+
+  // const viewStyle = useAnimatedStyle(() => {
+  //   const scale = interpolate(
+  //     drawerProgress.value,
+  //     [0,1],
+  //     [1,0.8]
+  //   )
+
+  //   const borderRadius = interpolate(
+  //     drawerProgress.value,
+  //     [0,1],
+  //     [1,40]
+  //   )
+
+  //   const rotate = interpolate(
+  //     translateX.value,
+  //     [0, SCREEN_WIDTH / 2],
+  //     [0, 3],
+  //     Extrapolate.CLAMP
+  //   );
+  //   return {
+  //     transform: [{ scale }, {
+        
+  //       rotateY: `${rotate}deg`,
+  //     },
+  //     {
+  //       translateX: translateX.value,
+  //     },
+  //   ],
+  //     borderRadius
+  //   }
+  // })
+  
   const {isLoading,isError,error,data} =  GetMenuApi()
   const {GetMenuData} = useSelector(state => state.GetMenuRedux)
   // console.log(GetMenuData?.data?.categoreis[1]?.cover,"888888888888888888888888888888888888888888");
   return (
-    <SafeAreaView style={{flex:1,marginBottom:"5%"}}> 
+    
+    <PanGestureHandler onGestureEvent={panGestureEvent} >
+
+    <Animated.View style={[styles.container,rStyle]}> 
  <ScrollView style={{flex:1,marginTop:25}}>
-  <TopMenu navigation={navigation} noti={true} ava={true} name={true}/>
+  <TopMenu navigation={navigation} noti={true} ava={true} name={true} onPress={onPress}/>
         {/* <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
             <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
             <Image 
@@ -64,8 +166,9 @@ const Home = ({ navigation }) => {
        
         </View>
     </ScrollView>
-    </SafeAreaView>
-   
+    </Animated.View>
+    </PanGestureHandler>
+
   )
 }
 
@@ -73,17 +176,9 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'white',
-      justifyContent: 'center',
-      paddingHorizontal: 20,
-      position:"absolute",
-      top:80,
-      width:"100%",
-      paddingTop:150,
-      height:"91%",
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
-      zIndex:1
+      marginBottom:"5%",
+      backgroundColor:"white"
+
   
       
     },
