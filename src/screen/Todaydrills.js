@@ -1,17 +1,89 @@
-import { View, Text,StyleSheet,ScrollView,TouchableOpacity,Animated  } from 'react-native'
-import React from 'react'
+import { View, Text,StyleSheet,ScrollView,TouchableOpacity ,Dimensions } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { COLORS } from '../Ulits/COLORS';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React, { useCallback, useState } from 'react'
 
+import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import SideBar from '../component/SideBar';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+const THRESHOLD = SCREEN_WIDTH / 3;
 
 const Todaydrills = () => {
    
-    
+  const translateX = useSharedValue(0);
+
+
+  const panGestureEvent = useAnimatedGestureHandler({
+    onStart: (_, context) => {
+      context.x = translateX.value;
+    },
+    onActive: (event, context) => {
+      // I forgot to wrap the translationX with Math.max in the video :/
+      // It must be done in order to clamp the right axis scroll
+      translateX.value = Math.max(event.translationX + context.x, 0);
+    },
+    onEnd: () => {
+      if (translateX.value <= THRESHOLD) {
+        translateX.value = withTiming(0);
+      } else {
+        translateX.value = withTiming(SCREEN_WIDTH / 2);
+        
+      }
+    },
+  });
+
+  const rStyle = useAnimatedStyle(() => {
+    const rotate = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 3],
+      Extrapolate.CLAMP
+    );
+
+    const borderRadius = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 15],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      borderRadius,
+      transform: [
+        { perspective: 100 },
+        {
+          translateX: translateX.value,
+        },
+        {
+          rotateY: `-${rotate}deg`,
+        },
+      ],
+    };
+  }, []);
+  const onPress = useCallback(() => {
+    if (translateX.value > 0) {
+      translateX.value = withTiming(0);
+      
+    } else {
+      translateX.value = withTiming(SCREEN_WIDTH / 2);
+      // navigation.openDrawer()
+    }
+  }, []);
   return (
-    <View style={{flex:1,backgroundColor:"white"}}>
+    <View style={styles.pagestyle}>
+      <SideBar />
+      <PanGestureHandler onGestureEvent={panGestureEvent} >
+
+      <Animated.View style={[styles.container,rStyle]}> 
         <View style={{flex:1,marginHorizontal:20,marginTop:20}}>
         <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",backgroundColor:"white"}}>
             <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
@@ -82,6 +154,9 @@ const Todaydrills = () => {
         </View>
         </View>
       
+    </Animated.View >
+    </PanGestureHandler>
+
     </View>
   )
 }

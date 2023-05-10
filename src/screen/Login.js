@@ -57,7 +57,6 @@ console.log(SignInData,"77777777777777777");
       let username = SignInData?.username
       let avatar = SignInData?.photo
 
-
       setToken(token,username,avatar);
     }
   },[SignInData])
@@ -86,7 +85,7 @@ console.log(SignInData,"77777777777777777");
       Alert.alert('Error', 'Please enter a valid email address');
     }
 
-    const MIN_LENGTH = 8;
+    const MIN_LENGTH = 4;
     const MAX_LENGTH = 20;
     const VALID_CHARACTERS = /^[a-zA-Z0-9!@#$%^&*]+$/;
 
@@ -253,7 +252,7 @@ if(TokenName)
       )}
        {!isValidPassword && (
         <Text style={styles.error}>
-          Password must be between 8 and 20 characters and can only contain letters, numbers, and special characters: !@#$%^&*
+          Password must be between 4 and 20 characters and can only contain letters, numbers, and special characters: !@#$%^&*
         </Text>
       )}
    </View>

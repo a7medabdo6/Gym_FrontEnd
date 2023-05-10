@@ -91,7 +91,7 @@ console.log(rating);
   <TouchableOpacity onPress={() => navigation.navigate('ScheduledExercises')}>
     <Button text="التمارين المقررة" bckColor={COLORS.mainColor}/>
   </TouchableOpacity>
-  <TouchableOpacity     onPress={() => Hnadelshow()}>
+  <TouchableOpacity  style={styles.marginBot}   onPress={() => Hnadelshow()}>
 
   <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
   </TouchableOpacity>
@@ -107,8 +107,11 @@ const styles = StyleSheet.create({
      display:"flex",
      justifyContent:"center",
      alignItems:"center",
-     marginBottom:"20%"
+     marginBottom:"20%",
   
+    },
+    marginBot:{
+      marginBottom:"10%"
     },
     image:{
         height:300,
@@ -197,5 +200,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
       },
+      pagestyle:{flex:1,backgroundColor:"#CCCCCC",flexDirection:"row"},
+
   });
 export default BodyAboutClinic

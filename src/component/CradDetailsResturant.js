@@ -12,7 +12,6 @@ import SelectDropdown from 'react-native-select-dropdown'
 import { GetBusinesApi } from '../server/Hook/Menu/Get-Busines-Hook';
 import { useSelector } from 'react-redux';
 import { GetMenuApi } from '../server/Hook/Menu/Get-Menu-Hook';
-
 const CradDetailsResturant = ({itemId}) => {
 
   const {data:menu} =  GetMenuApi()
@@ -79,13 +78,13 @@ const CradDetailsResturant = ({itemId}) => {
         {/* <Text style={styles.text} > منطقه السوق</Text> */}
             </View>
 
-      <View>
+      {/* <View>
       <Image 
                source={require('../../assets/images/menu-green.png')}
                style={styles.image}
             />
 
-      </View>
+      </View> */}
 
         </View>
         

@@ -85,7 +85,7 @@ console.log(rating);
 
             <Button text="  تفاصيل الاشتراك" bckColor={COLORS.mainColor}/>
 
-            <TouchableOpacity     onPress={() => Hnadelshow()}>
+            <TouchableOpacity   style={styles.marginBot}   onPress={() => Hnadelshow()}>
 
 <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
 </TouchableOpacity>
@@ -150,6 +150,9 @@ const styles = StyleSheet.create({
     size:{
       fontSize:"5%"
       },
+      marginBot:{
+        marginBottom:"10%"
+      },
       centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -192,5 +195,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
       },
+      pagestyle:{flex:1,backgroundColor:"#CCCCCC",flexDirection:"row"},
+
   });
 export default BodyAboutGYM

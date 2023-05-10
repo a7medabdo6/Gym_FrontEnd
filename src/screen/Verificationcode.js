@@ -25,6 +25,7 @@ const Verificationcode = () => {
 
     
   };
+  
   return (
     <View style={styles.container}>
 

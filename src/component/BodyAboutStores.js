@@ -85,7 +85,7 @@ console.log(rating);
 
             <Button text="  تفاصيل الاشتراك" bckColor={COLORS.mainColor}/>
 
-            <TouchableOpacity     onPress={() => Hnadelshow()}>
+            <TouchableOpacity  style={styles.marginBot}    onPress={() => Hnadelshow()}>
 
 <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
 </TouchableOpacity>
@@ -175,6 +175,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
+      },
+      marginBot:{
+        marginBottom:"10%"
       },
       buttonOpen: {
         backgroundColor: '#F194FF',

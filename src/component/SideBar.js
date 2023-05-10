@@ -11,7 +11,7 @@ const SideBar = () => {
     navigation.navigate(item)
   };
 
-  const data = ['Home', 'profile', 'Setting'];
+  const data = ['Home', 'profile', 'Setting',"Food Table","Training"];
 
   return (
     <View style={styles.container}>

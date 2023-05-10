@@ -159,7 +159,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginBottom:"5%",
       backgroundColor:"white"
 
   
@@ -190,6 +189,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       marginTop: 20,
     },
-    pagestyle:{flex:1,backgroundColor:"green",flexDirection:"row"}
+    pagestyle:{flex:1,backgroundColor:"#CCCCCC",flexDirection:"row"}
   });
 export default Home

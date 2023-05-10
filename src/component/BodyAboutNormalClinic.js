@@ -91,7 +91,7 @@ console.log(rating);
             <Button text="التدريبات اليوميه" bckColor={COLORS.mainColor}/>
             </TouchableOpacity>
 
-            <TouchableOpacity     onPress={() => Hnadelshow()}>
+            <TouchableOpacity  style={styles.marginBot}    onPress={() => Hnadelshow()}>
 
   <Button text="قيم هذا المكان" bckColor={COLORS.mainColor}/>
   </TouchableOpacity>
@@ -110,6 +110,9 @@ const styles = StyleSheet.create({
      alignItems:"center",
      marginBottom:"20%"
   
+    },
+    marginBot:{
+      marginBottom:"10%"
     },
     image:{
         height:300,

@@ -36,14 +36,14 @@ const CardDetailsStores = ({itemId}) => {
 
         <Text style={styles.text} > منطقه السوق</Text>
             </View>
-
+{/* 
       <View>
       <Image 
                source={require('../../assets/images/menu-green.png')}
                style={styles.image}
             />
 
-      </View>
+      </View> */}
 
         </View>
         

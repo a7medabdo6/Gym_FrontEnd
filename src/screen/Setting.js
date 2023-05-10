@@ -110,7 +110,7 @@ const onPress = useCallback(() => {
             <PanGestureHandler onGestureEvent={panGestureEvent} >
 
     <Animated.View style={[styles.page,rStyle]}>
-    <TopMenu navigation={navigation} noti={true} ava={false} name={false}/>
+    <TopMenu navigation={navigation} noti={true} ava={false} name={false} onPress={onPress}/>
 
     <View style={styles.centeredView}>
       <Modal
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     top:80,
     width:"100%",
     paddingTop:150,
-    height:"91%",
+    height:"100%",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     zIndex:1
@@ -205,8 +205,7 @@ const styles = StyleSheet.create({
   },
   page:{
     flex:1,
-    marginTop:"5%",
-    marginLeft:"3%",
+    
     backgroundColor: 'white',
   },
  
@@ -269,7 +268,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
-  pagestyle:{flex:1,backgroundColor:"red",flexDirection:"row"}
+  pagestyle:{flex:1,backgroundColor:"#cccccc",flexDirection:"row"}
 
 
 });

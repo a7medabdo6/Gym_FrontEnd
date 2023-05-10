@@ -140,7 +140,7 @@ console.log(token,".......................");
     <PanGestureHandler onGestureEvent={panGestureEvent} >
 
     <Animated.View style={[styles.page,rStyle]}>
-          <TopMenu navigation={navigation} noti={true} ava={false} name={false}/>
+          <TopMenu navigation={navigation} noti={true} ava={false} name={false} onPress={onPress}/>
 
         <View style={styles.body}>
             <View style={styles.avatar}>
@@ -293,7 +293,7 @@ marginVertical:5
       width:100,
       color:"white"
   },
-  pagestyle:{flex:1,backgroundColor:"red",flexDirection:"row"}
+  pagestyle:{flex:1,backgroundColor:"#CCCCCC",flexDirection:"row"}
 
   });
 

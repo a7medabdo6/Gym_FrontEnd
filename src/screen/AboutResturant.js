@@ -1,15 +1,89 @@
-import { View, Text ,StyleSheet,Image,ScrollView} from 'react-native'
-import React from 'react'
+import { View, Text ,StyleSheet,Image,ScrollView,Dimensions} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BodyAboutGYM from '../component/BodyAboutGYM';
 import BodyAboutStores from '../component/BodyAboutStores';
 import BodyAboutResturant from '../component/BodyAboutResturant';
+import React, { useCallback, useState } from 'react'
 
+import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import SideBar from '../component/SideBar';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+const THRESHOLD = SCREEN_WIDTH / 3;
 const AboutResturant = ({route}) => {
   const { item } = route.params;
+
+  const translateX = useSharedValue(0);
+
+
+  const panGestureEvent = useAnimatedGestureHandler({
+    onStart: (_, context) => {
+      context.x = translateX.value;
+    },
+    onActive: (event, context) => {
+      // I forgot to wrap the translationX with Math.max in the video :/
+      // It must be done in order to clamp the right axis scroll
+      translateX.value = Math.max(event.translationX + context.x, 0);
+    },
+    onEnd: () => {
+      if (translateX.value <= THRESHOLD) {
+        translateX.value = withTiming(0);
+      } else {
+        translateX.value = withTiming(SCREEN_WIDTH / 2);
+        
+      }
+    },
+  });
+
+  const rStyle = useAnimatedStyle(() => {
+    const rotate = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 3],
+      Extrapolate.CLAMP
+    );
+
+    const borderRadius = interpolate(
+      translateX.value,
+      [0, SCREEN_WIDTH / 4],
+      [0, 15],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      borderRadius,
+      transform: [
+        { perspective: 100 },
+        {
+          translateX: translateX.value,
+        },
+        {
+          rotateY: `-${rotate}deg`,
+        },
+      ],
+    };
+  }, []);
+  const onPress = useCallback(() => {
+    if (translateX.value > 0) {
+      translateX.value = withTiming(0);
+      
+    } else {
+      translateX.value = withTiming(SCREEN_WIDTH / 2);
+      // navigation.openDrawer()
+    }
+  }, []);
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.pagestyle}>
+      <SideBar />
+      <PanGestureHandler onGestureEvent={panGestureEvent} >
+
+      <Animated.View style={[styles.container,rStyle]}> 
         <View style={styles.header}>
         <Image 
                source={require('../../assets/images/menu-green.png')}
@@ -26,7 +100,10 @@ const AboutResturant = ({route}) => {
             <BodyAboutResturant item={item}/>
         </View>
 
-    </ScrollView>
+    </Animated.View>
+    </PanGestureHandler>
+
+    </View>
   )
 }
 
@@ -34,7 +111,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'white',
-     marginBottom:"20%"
   
     },
     header:{
@@ -67,6 +143,52 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       marginTop: 20,
     },
+    
+  size:{
+    fontSize:"5%"
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+      backgroundColor: '#2196F3',
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: 'center',
+    },
+    pagestyle:{flex:1,backgroundColor:"red",flexDirection:"row"}
   });
 
 
