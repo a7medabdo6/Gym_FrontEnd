@@ -99,8 +99,8 @@ const CradDetailsResturant = ({itemId}) => {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
               <TouchableOpacity onPress={() => navigation.navigate('CardInfoResturant',{item})}>
-        <MiniCard title={item?.name} text="مطعم  متخصص فيالاكلات الصحيه وافضلها ب اسعار تناسب الجميع" adress="  طبربور  - بالقرب من -"/>
-        </TouchableOpacity>
+        <MiniCard title={item?.name} itemId={item?.id} text="مطعم  متخصص فيالاكلات الصحيه وافضلها ب اسعار تناسب الجميع" adress="  طبربور  - بالقرب من -" item={item} />
+        </TouchableOpacity> 
             )
           })
         }

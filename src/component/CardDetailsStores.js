@@ -55,7 +55,7 @@ const CardDetailsStores = ({itemId}) => {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
               <TouchableOpacity onPress={() => navigation.navigate('CardInfoStores',{item})}>
-        <MiniCard title={item?.name} text="       تصفح الالف المنتجات الخاصه  بك " adress="  طبربور  - بالقرب من -"/>
+        <MiniCard title={item?.name} itemId={item?.id} text="       تصفح الالف المنتجات الخاصه  بك " adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )
           })

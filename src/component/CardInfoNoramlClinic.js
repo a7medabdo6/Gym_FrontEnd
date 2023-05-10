@@ -1,5 +1,5 @@
 import { View, Text,ScrollView,StyleSheet, TouchableOpacity,ImageBackground,Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Card from './Card'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -7,10 +7,15 @@ import MiniCard from './MiniCard';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../Ulits/COLORS';
 import CardOfer from './CardOfer';
+import { GetOffersApi } from '../server/Hook/Offers/Get-Offers-Hook';
+import { useSelector } from 'react-redux';
 
 const CardInfoNoramlClinic = ({route}) => {
     const navigation = useNavigation();
     const { item } = route.params;
+    const [itemid,setitemid]   = useState(item?.id)
+    const {isLoading,isError,error,data} = GetOffersApi(itemid)
+    const {GetOffersData} = useSelector(state => state.GetOffersRedux)
   return (
     <View style={{flex:1,backgroundColor:"white",marginBottom:"20%"}}>
     <View style={{margin:20}}>
@@ -48,12 +53,13 @@ const CardInfoNoramlClinic = ({route}) => {
 
     
   <ScrollView style={{marginHorizontal:20}}>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#F4F4F4"  color="grey"/>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#4750E4" color="white"/>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#F4F4F4" color="grey"/>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#4750E4" color="white"/>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#F4F4F4" color="grey"/>
-    <CardOfer text="عرض 6 شهور + خصم 20% في عياده نادي X" title="خصم خاص عند الاشتراك لمده 6 شهور من التطبيق واحصل على 20% خصم في  نادي X" bckColor="#4750E4" color="white"/>
+  {
+          GetOffersData?.data?.businesoffer.map((item)=>{return(
+            <CardOfer text={item?.name} title={item?.desc} bckColor="#F4F4F4" color="grey"/>
+
+          )})
+        }
+    
 
   </ScrollView>
 </View>

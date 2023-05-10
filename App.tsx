@@ -184,7 +184,8 @@ function App() {
               }
               initialRouteName="Home"
             
-              drawerContent={props => <CustomDrawer {...props} />}>
+              drawerContent={props => <CustomDrawer {...props} />}
+              >
               <Drawer.Screen
                 name="Home"
                 options={{headerShown: false}}
@@ -231,9 +232,10 @@ const styles = StyleSheet.create({
   },
   page: {
     flex: 1,
+
   },
   scentstyle:{
-    backgroundColor:"red"
+    // backgroundColor:"red"
   }
 });
 

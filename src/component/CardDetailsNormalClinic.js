@@ -57,7 +57,7 @@ const CardDetailsNormalClinic = ({itemId}) => {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
               <TouchableOpacity onPress={() => navigation.navigate('CardInfoNoramlClinic',{item})}>
-        <MiniCard title={item?.name} text="عياده متخصصه    بالعلاج الطبيعي وعلاج الالم المفاصل " adress="  طبربور  - بالقرب من -"/>
+        <MiniCard title={item?.name} itemId={item?.id} text="عياده متخصصه    بالعلاج الطبيعي وعلاج الالم المفاصل " adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )
           })

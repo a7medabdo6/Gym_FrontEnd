@@ -1,5 +1,4 @@
-import { View, Text,StyleSheet ,TouchableOpacity, Alert, Modal, Pressable} from 'react-native'
-import React,{useState} from 'react'
+import { View, Text,StyleSheet ,TouchableOpacity, Alert, Modal, Pressable,Dimensions} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,6 +7,20 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SettingCard from '../component/SettingCard';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useDrawerProgress } from '@react-navigation/drawer';
+import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import React, { useCallback, useState } from 'react'
+
+import SideBar from '../component/SideBar';
+import TopMenu from '../component/TopMenu';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+const THRESHOLD = SCREEN_WIDTH / 3;
 
 const Setting = () => {
   const navigation = useNavigation();
@@ -26,8 +39,79 @@ const choseArabic =()=>{
   i18n.changeLanguage("ar")
   setModalVisible(!modalVisible)
 }
+
+
+
+
+
+const translateX = useSharedValue(0);
+
+const drawerProgress = useDrawerProgress()
+
+const panGestureEvent = useAnimatedGestureHandler({
+  onStart: (_, context) => {
+    context.x = translateX.value;
+  },
+  onActive: (event, context) => {
+    // I forgot to wrap the translationX with Math.max in the video :/
+    // It must be done in order to clamp the right axis scroll
+    translateX.value = Math.max(event.translationX + context.x, 0);
+  },
+  onEnd: () => {
+    if (translateX.value <= THRESHOLD) {
+      translateX.value = withTiming(0);
+    } else {
+      translateX.value = withTiming(SCREEN_WIDTH / 2);
+      
+    }
+  },
+});
+
+const rStyle = useAnimatedStyle(() => {
+  const rotate = interpolate(
+    translateX.value,
+    [0, SCREEN_WIDTH / 4],
+    [0, 3],
+    Extrapolate.CLAMP
+  );
+
+  const borderRadius = interpolate(
+    translateX.value,
+    [0, SCREEN_WIDTH / 4],
+    [0, 15],
+    Extrapolate.CLAMP
+  );
+
+  return {
+    borderRadius,
+    transform: [
+      { perspective: 100 },
+      {
+        translateX: translateX.value,
+      },
+      {
+        rotateY: `-${rotate}deg`,
+      },
+    ],
+  };
+}, []);
+const onPress = useCallback(() => {
+  if (translateX.value > 0) {
+    translateX.value = withTiming(0);
+    
+  } else {
+    translateX.value = withTiming(SCREEN_WIDTH / 2);
+    // navigation.openDrawer()
+  }
+}, []);
   return (
-    <View style={{flex:1,marginLeft:"3%",marginTop:"5%"}}>
+    <View style={styles.pagestyle}>
+            <SideBar />
+            <PanGestureHandler onGestureEvent={panGestureEvent} >
+
+    <Animated.View style={[styles.page,rStyle]}>
+    <TopMenu navigation={navigation} noti={true} ava={false} name={false}/>
+
     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
@@ -80,7 +164,11 @@ const choseArabic =()=>{
  
 
      
+    </Animated.View>
+    </PanGestureHandler>
+
     </View>
+
   )
 }
 const styles = StyleSheet.create({
@@ -114,6 +202,12 @@ const styles = StyleSheet.create({
   text:{
     fontSize:18,
     color:"black"
+  },
+  page:{
+    flex:1,
+    marginTop:"5%",
+    marginLeft:"3%",
+    backgroundColor: 'white',
   },
  
   title:{
@@ -175,6 +269,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  pagestyle:{flex:1,backgroundColor:"red",flexDirection:"row"}
+
 
 });
 export default Setting

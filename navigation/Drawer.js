@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 
 const DrawerContent = (props) => {
     return (
-      <DrawerContentScrollView {...props} scrollEnabled={false}>
+      <DrawerContentScrollView {...props} scrollEnabled={false} gestureEnabled={false}>
         <DrawerItem
           label="Home"
           labelStyle={styles.drawerLblStyle}
@@ -37,4 +37,4 @@ const DrawerContent = (props) => {
   };
      
 
-export default Drawer
+export default DrawerContent

@@ -99,7 +99,7 @@ const CardDetailsGym = ({itemId}) => {
           GetBusinesData?.data?.busines.map((item,index)=>{
             return(
               <TouchableOpacity onPress={() => navigation.navigate('CardInfoGym',{item})}>
-        <MiniCard title={item?.name} text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
+        <MiniCard title={item?.name} itemId={item?.id} text="نادي متخصص واحدث الماكينات واقوي المدربين" adress="  طبربور  - بالقرب من -"/>
         </TouchableOpacity>
             )
           })

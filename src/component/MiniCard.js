@@ -1,11 +1,34 @@
 import { View, Text,ScrollView,StyleSheet ,TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Entypo from 'react-native-vector-icons/Entypo';
 import { COLORS } from '../Ulits/COLORS';
 import { useNavigation } from '@react-navigation/native';
+import { UseGetOffersApi } from '../server/Api/Offers/Use-Get-Offers-Api';
+import { useSelector } from 'react-redux';
+import { GetRateApi } from '../server/Hook/Rate/Get-Rate-Hook';
 
-const MiniCard = ({title,text,adress}) => {
-   
+const MiniCard = ({title,text,adress,itemId}) => {
+  console.log(itemId,"777777777777777777777777777777777777777777777777777777777777777777777777");
+
+  const [OneCart,setOneCart]  =useState([])
+  const {isLoading,isError,error,data} =  GetRateApi()
+  const {GetRateData} = useSelector(state => state.GetRateRedux)
+  useEffect(()=>{
+if(GetRateData){
+  const filterdata = GetRateData?.data[0].filter((item)=>{
+    item?.busines?.id === itemId
+    })
+
+    
+    console.log(filterdata,"78777777777777777666");
+
+    setOneCart(filterdata)
+
+}
+
+  },[GetRateData])
+
+  // console.log(GetRateData?.data[0][0].busines?.id,"78777777777777777666");
 
   return (
     <ScrollView style={styles.container}>

@@ -3,21 +3,22 @@ import { useMutation, useQuery, useQueryClient } from "react-query"
 import { useSelector, useDispatch } from 'react-redux';
 import { UseSigninApi } from '../../Api/Auth/Use-Login-User-Api';
 import { SignInDataInfo } from '../../Redux/Auth/SignIn-Redux';
-import { UseGetBusinesApi } from '../../Api/Menu/Use-Get-Busines-Api';
-import { GetBusinesDataInfo } from '../../Redux/Menu/Get-Busines-Redux';
+import { UseGetRateApi } from '../../Api/Rate/Use-Get-Rate-Api';
+import { GetRateDataInfo } from '../../Redux/Rate/Get-Rate-Redux';
 
 
 
 
-export const GetBusinesApi = itemId => {
+
+export const GetRateApi = itemid => {
     const dispatch = useDispatch();
     const QueryClient = useQueryClient();
 
-    return useQuery(["GetBusinesHook",itemId],(itemId)=> UseGetBusinesApi(itemId), {
+    return useQuery(["GetRateHook",itemid],(itemid)=>UseGetRateApi(itemid), {
       onSuccess: res => {
         
         
-         dispatch(GetBusinesDataInfo(res));
+         dispatch(GetRateDataInfo(res));
         // localStorage.setItem('user', JSON.stringify(result.data));
         // localStorage.setItem('token', JSON.stringify(result.data.token));
         //  window.location.replace('/');

@@ -18,6 +18,7 @@ import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
+import SideBar from '../component/SideBar';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const THRESHOLD = SCREEN_WIDTH / 3;
@@ -40,6 +41,7 @@ const Home = ({ navigation }) => {
         translateX.value = withTiming(0);
       } else {
         translateX.value = withTiming(SCREEN_WIDTH / 2);
+        
       }
     },
   });
@@ -78,7 +80,7 @@ const Home = ({ navigation }) => {
       
     } else {
       translateX.value = withTiming(SCREEN_WIDTH / 2);
-      navigation.openDrawer()
+      navigation.closeDrawer()
     }
   }, []);
 
@@ -116,36 +118,14 @@ const Home = ({ navigation }) => {
   
   const {isLoading,isError,error,data} =  GetMenuApi()
   const {GetMenuData} = useSelector(state => state.GetMenuRedux)
-  // console.log(GetMenuData?.data?.categoreis[1]?.cover,"888888888888888888888888888888888888888888");
   return (
-    
+    <View style={styles.pagestyle}>
+      <SideBar />
     <PanGestureHandler onGestureEvent={panGestureEvent} >
-
     <Animated.View style={[styles.container,rStyle]}> 
  <ScrollView style={{flex:1,marginTop:25}}>
   <TopMenu navigation={navigation} noti={true} ava={true} name={true} onPress={onPress}/>
-        {/* <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
-            <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
-            <Image 
-               source={require('../../assets/images/notification.png')}
-               style={styles.image}
-            />
- <Image 
-               source={require('../../assets/images/profile-green.png')}
-               style={[styles.image,{marginHorizontal:15  }]}
-            />        
-        <Text style={styles.text} >اسم المستخدم</Text>
-            </View>
-
-            <View >
-    <Image 
-               source={require('../../assets/images/menu-green.png')}
-               style={styles.image}
-            />
-
-      </View>
-
-        </View> */}
+      
         <View>
           {
             GetMenuData?.data?.categoreis?.map((item,index)=>{
@@ -168,6 +148,9 @@ const Home = ({ navigation }) => {
     </ScrollView>
     </Animated.View>
     </PanGestureHandler>
+    </View>
+   
+
 
   )
 }
@@ -207,5 +190,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       marginTop: 20,
     },
+    pagestyle:{flex:1,backgroundColor:"green",flexDirection:"row"}
   });
 export default Home

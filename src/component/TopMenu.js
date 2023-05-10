@@ -34,7 +34,7 @@ const TopMenu = ({navigation,noti,name,ava,onPress}) => {
     printToken();
 
   return (
-    <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20}}>
+    <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",alignItems:"center",marginHorizontal:20,marginTop:20}}>
     <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center"}}>
       {
         noti === true ? (  <Image 
